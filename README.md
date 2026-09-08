@@ -40,7 +40,8 @@ y elige otro tema. No queda ningún rastro.
 ## Contenido
 
 - `desktop-plugins/minimalist-themes/plugin.js` — el plugin: 18 temas,
-  un solo archivo, sin dependencias ni red.
-- `skins/*.yaml` — las mismas paletas como skins del backend (CLI/TUI).
-  Opcional: solo la skin activa llega al Desktop con
-  `hermes config set display.skin <nombre>`.
+  un solo archivo, sin dependencias ni red. **Solo aplica a la app Hermes
+  Desktop** (panel Appearance); no afecta a la CLI ni a la TUI.
+- `skins/*.yaml` — las mismas paletas como skins del backend para **CLI/TUI**
+  (`hermes skin use <nombre>`; verificado que activan). No es necesario para
+  usar los temas en el Desktop.
