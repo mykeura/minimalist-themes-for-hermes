@@ -1,7 +1,7 @@
 /**
- * Minimalist themes for Hermes Desktop — 18 palettes (v4).
- * primary/ring/midground = accent endurecido a 4.5:1 (text-primary es texto).
- * El pastel original vive en secondary/accent-soft/bubble.
+ * Minimalist themes for Hermes Desktop — 18 palettes.
+ * Generado por scripts/build-plugin.py (no editar a mano).
+ * Sessions/Bots difieren por diseno de la app; no se fuerza igualdad.
  */
 import { THEMES_AREA } from '@hermes/plugin-sdk'
 
@@ -11,7 +11,7 @@ const THEMES = [
   {
     name: 'beetroot-juice',
     label: 'Beetroot Juice',
-    description: 'Minimalist Beetroot Juice — minimalist palette',
+    description: 'Minimalist Beetroot Juice',
     colors: {
       background: '#F6E1DF',
       foreground: '#3A3E41',
@@ -19,7 +19,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#D8C6C5',
       mutedForeground: '#525557',
-      popover: '#F4DAD8',
+      popover: '#F8E7E6',
       popoverForeground: '#3A3E41',
       primary: '#6E6060',
       primaryForeground: '#ffffff',
@@ -44,7 +44,7 @@ const THEMES = [
   {
     name: 'blackberry-juice',
     label: 'Blackberry Juice',
-    description: 'Minimalist Blackberry Juice — minimalist palette',
+    description: 'Minimalist Blackberry Juice',
     colors: {
       background: '#E6D7F8',
       foreground: '#3A3E41',
@@ -52,7 +52,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#FBF9FE',
       mutedForeground: '#666A6D',
-      popover: '#E1CFF7',
+      popover: '#ECE1FA',
       popoverForeground: '#3A3E41',
       primary: '#625A75',
       primaryForeground: '#ffffff',
@@ -77,7 +77,7 @@ const THEMES = [
   {
     name: 'coffee-with-milk',
     label: 'Coffee With Milk',
-    description: 'Minimalist Coffee With Milk — minimalist palette',
+    description: 'Minimalist Coffee With Milk',
     colors: {
       background: '#E6D7C3',
       foreground: '#3A3E41',
@@ -85,7 +85,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#F9F5EF',
       mutedForeground: '#666A6D',
-      popover: '#E6D5BC',
+      popover: '#F7EEDF',
       popoverForeground: '#3A3E41',
       primary: '#5C5952',
       primaryForeground: '#ffffff',
@@ -110,7 +110,7 @@ const THEMES = [
   {
     name: 'cornmeal-porridge',
     label: 'Cornmeal Porridge',
-    description: 'Minimalist Cornmeal Porridge — minimalist palette',
+    description: 'Minimalist Cornmeal Porridge',
     colors: {
       background: '#F0E8DB',
       foreground: '#3A3E41',
@@ -118,7 +118,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#FFF8EB',
       mutedForeground: '#666A6D',
-      popover: '#F2E6D2',
+      popover: '#FFF4E1',
       popoverForeground: '#3A3E41',
       primary: '#6B6558',
       primaryForeground: '#ffffff',
@@ -143,7 +143,7 @@ const THEMES = [
   {
     name: 'diana-yin',
     label: 'Diana Yin',
-    description: 'Minimalist Diana Yin — minimalist palette',
+    description: 'Minimalist Diana Yin',
     colors: {
       background: '#C8BFE7',
       foreground: '#3A3E41',
@@ -151,7 +151,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#EFEDFF',
       mutedForeground: '#666A6D',
-      popover: '#C5BAE6',
+      popover: '#E7E2F6',
       popoverForeground: '#3A3E41',
       primary: '#4C4C59',
       primaryForeground: '#ffffff',
@@ -176,7 +176,7 @@ const THEMES = [
   {
     name: 'grape-juice',
     label: 'Grape Juice',
-    description: 'Minimalist Grape Juice — minimalist palette',
+    description: 'Minimalist Grape Juice',
     colors: {
       background: '#DBD9F0',
       foreground: '#3A3E41',
@@ -184,7 +184,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#F8F8FC',
       mutedForeground: '#666A6D',
-      popover: '#D4D2ED',
+      popover: '#E6E4F4',
       popoverForeground: '#3A3E41',
       primary: '#5C5D70',
       primaryForeground: '#ffffff',
@@ -209,7 +209,7 @@ const THEMES = [
   {
     name: 'green-tea',
     label: 'Green Tea',
-    description: 'Minimalist Green Tea — minimalist palette',
+    description: 'Minimalist Green Tea',
     colors: {
       background: '#E3F5DE',
       foreground: '#3A3E41',
@@ -217,7 +217,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#C8D8C4',
       mutedForeground: '#575A5D',
-      popover: '#DBF2D5',
+      popover: '#E5F5E1',
       popoverForeground: '#3A3E41',
       primary: '#5B6E5C',
       primaryForeground: '#ffffff',
@@ -242,7 +242,7 @@ const THEMES = [
   {
     name: 'hibiscus-tea',
     label: 'Hibiscus Tea',
-    description: 'Minimalist Hibiscus Tea — minimalist palette',
+    description: 'Minimalist Hibiscus Tea',
     colors: {
       background: '#FADFDC',
       foreground: '#3A3E41',
@@ -250,7 +250,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#DBC4C2',
       mutedForeground: '#525557',
-      popover: '#F9D9D6',
+      popover: '#FCE9E8',
       popoverForeground: '#3A3E41',
       primary: '#726263',
       primaryForeground: '#ffffff',
@@ -275,7 +275,7 @@ const THEMES = [
   {
     name: 'horchata',
     label: 'Horchata',
-    description: 'Minimalist Horchata — minimalist palette',
+    description: 'Minimalist Horchata',
     colors: {
       background: '#FAF3EA',
       foreground: '#3A3E41',
@@ -283,7 +283,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#D1D0CB',
       mutedForeground: '#525557',
-      popover: '#F8EFE4',
+      popover: '#FAF3EC',
       popoverForeground: '#3A3E41',
       primary: '#706C66',
       primaryForeground: '#ffffff',
@@ -308,7 +308,7 @@ const THEMES = [
   {
     name: 'mango',
     label: 'Mango',
-    description: 'Minimalist Mango — minimalist palette',
+    description: 'Minimalist Mango',
     colors: {
       background: '#FFF5DD',
       foreground: '#3A3E41',
@@ -316,7 +316,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#E0D8C4',
       mutedForeground: '#5C5F62',
-      popover: '#FFF2D5',
+      popover: '#FFF6E4',
       popoverForeground: '#3A3E41',
       primary: '#756F5F',
       primaryForeground: '#ffffff',
@@ -341,7 +341,7 @@ const THEMES = [
   {
     name: 'mint',
     label: 'Mint',
-    description: 'Minimalist Mint — minimalist palette',
+    description: 'Minimalist Mint',
     colors: {
       background: '#D5F5E3',
       foreground: '#3A3E41',
@@ -349,7 +349,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#A1D2B7',
       mutedForeground: '#4C5052',
-      popover: '#D1F4E0',
+      popover: '#E9FAF1',
       popoverForeground: '#3A3E41',
       primary: '#596A64',
       primaryForeground: '#ffffff',
@@ -374,7 +374,7 @@ const THEMES = [
   {
     name: 'nance-juice',
     label: 'Nance Juice',
-    description: 'Minimalist Nance Juice — minimalist palette',
+    description: 'Minimalist Nance Juice',
     colors: {
       background: '#FEFCF1',
       foreground: '#3A3E41',
@@ -382,7 +382,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#E0DFD6',
       mutedForeground: '#5C5F62',
-      popover: '#FDF8DF',
+      popover: '#FDF4D4',
       popoverForeground: '#3A3E41',
       primary: '#7C7551',
       primaryForeground: '#ffffff',
@@ -407,7 +407,7 @@ const THEMES = [
   {
     name: 'oceans',
     label: 'Oceans',
-    description: 'Minimalist Oceans — minimalist palette',
+    description: 'Minimalist Oceans',
     colors: {
       background: '#B9E2FB',
       foreground: '#3A3E41',
@@ -415,7 +415,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#F3FAFE',
       mutedForeground: '#666A6D',
-      popover: '#ACDDFA',
+      popover: '#CFEBFC',
       popoverForeground: '#3A3E41',
       primary: '#456477',
       primaryForeground: '#ffffff',
@@ -440,7 +440,7 @@ const THEMES = [
   {
     name: 'orange-juice',
     label: 'Orange Juice',
-    description: 'Minimalist Orange Juice — minimalist palette',
+    description: 'Minimalist Orange Juice',
     colors: {
       background: '#FCF1E8',
       foreground: '#3A3E41',
@@ -448,7 +448,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#DED4CD',
       mutedForeground: '#575A5D',
-      popover: '#FBECDF',
+      popover: '#FCEFE5',
       popoverForeground: '#3A3E41',
       primary: '#726860',
       primaryForeground: '#ffffff',
@@ -473,7 +473,7 @@ const THEMES = [
   {
     name: 'snow-water',
     label: 'Snow Water',
-    description: 'Minimalist Snow Water — minimalist palette',
+    description: 'Minimalist Snow Water',
     colors: {
       background: '#E8F4FC',
       foreground: '#3A3E41',
@@ -481,7 +481,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#C8D8C4',
       mutedForeground: '#575A5D',
-      popover: '#E0F0FA',
+      popover: '#E7F3FB',
       popoverForeground: '#3A3E41',
       primary: '#5D6C76',
       primaryForeground: '#ffffff',
@@ -506,7 +506,7 @@ const THEMES = [
   {
     name: 'turquoise',
     label: 'Turquoise',
-    description: 'Minimalist Turquoise — minimalist palette',
+    description: 'Minimalist Turquoise',
     colors: {
       background: '#DDF2ED',
       foreground: '#3A3E41',
@@ -514,7 +514,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#C3D5D1',
       mutedForeground: '#575A5D',
-      popover: '#D5EEE9',
+      popover: '#E3F4F0',
       popoverForeground: '#3A3E41',
       primary: '#596C6B',
       primaryForeground: '#ffffff',
@@ -539,7 +539,7 @@ const THEMES = [
   {
     name: 'ultramarine',
     label: 'Ultramarine',
-    description: 'Minimalist Ultramarine — minimalist palette',
+    description: 'Minimalist Ultramarine',
     colors: {
       background: '#D2D9F4',
       foreground: '#3A3E41',
@@ -547,7 +547,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#F2F4FD',
       mutedForeground: '#666A6D',
-      popover: '#CAD3F3',
+      popover: '#E1E6F9',
       popoverForeground: '#3A3E41',
       primary: '#575F74',
       primaryForeground: '#ffffff',
@@ -572,7 +572,7 @@ const THEMES = [
   {
     name: 'yuzu',
     label: 'Yuzu',
-    description: 'Minimalist Yuzu — minimalist palette',
+    description: 'Minimalist Yuzu',
     colors: {
       background: '#EEF6DA',
       foreground: '#3A3E41',
@@ -580,7 +580,7 @@ const THEMES = [
       cardForeground: '#3A3E41',
       muted: '#DAE0CC',
       mutedForeground: '#5C5F62',
-      popover: '#EBF5D2',
+      popover: '#F3FAE3',
       popoverForeground: '#3A3E41',
       primary: '#616A59',
       primaryForeground: '#ffffff',
@@ -614,3 +614,4 @@ export default {
     }
   }
 }
+
