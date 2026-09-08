@@ -17,7 +17,7 @@ Aparecen en **Settings → Appearance** junto a los temas incluidos.
 Necesitas `git` y Hermes Desktop.
 
 ```bash
-git clone https://github.com/TU-USUARIO/minimalist-hermes-themes /tmp/minimalist-hermes-themes
+git clone https://github.com/mykeura/minimalist-hermes-themes /tmp/minimalist-hermes-themes
 mkdir -p "${HERMES_HOME:-$HOME/.hermes}/desktop-plugins"
 cp -r /tmp/minimalist-hermes-themes/desktop-plugins/minimalist-themes \
       "${HERMES_HOME:-$HOME/.hermes}/desktop-plugins/"
