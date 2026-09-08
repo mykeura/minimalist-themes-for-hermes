@@ -1,0 +1,51 @@
+# Minimalist Blackberry Juice — generated from palettes.json
+# Source palette: accent=#C19BEE, canvas=#E6D7F8, field=#FBF9FE, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#E6D7F8, paper=#FFFFFF, button=#C19BEE
+name: blackberry-juice
+description: Minimalist Blackberry Juice — minimalist light palette
+
+colors:
+  background: "#E6D7F8"
+  ui_accent: "#C19BEE"
+  banner_accent: "#C19BEE"
+  banner_title: "#3A3E41"
+  banner_text: "#3A3E41"
+  ui_text: "#3A3E41"
+  ui_label: "#3A3E41"
+  ui_thinking: "#666A6D"
+  banner_dim: "#666A6D"
+  banner_border: "#FBF9FE"
+  ui_border: "#FBF9FE"
+  ui_tool: "#C19BEE"
+  prompt: "#3A3E41"
+  input_rule: "#C19BEE"
+  response_border: "#FBF9FE"
+  status_bar_bg: "#FBF9FE"
+  status_bar_text: "#3A3E41"
+  status_bar_strong: "#3C4043"
+  status_bar_dim: "#666A6D"
+  status_bar_good: "#2F7D32"
+  status_bar_warn: "#9A6700"
+  status_bar_bad: "#9A6700"
+  status_bar_critical: "#B42318"
+  ui_ok: "#2F7D32"
+  ui_warn: "#9A6700"
+  ui_error: "#B42318"
+  session_label: "#3C4043"
+  session_border: "#FBF9FE"
+  completion_menu_bg: "#FFFFFF"
+  completion_menu_current_bg: "#C19BEE"
+  selection_bg: "#FBF9FE"
+  voice_status_bg: "#E6D7F8"
+  diff_added: "#2F7D32"
+  diff_removed: "#B42318"
+  syntax_string: "#3A3E41"
+  syntax_number: "#C19BEE"
+  syntax_keyword: "#3C4043"
+  syntax_comment: "#666A6D"
+
+branding:
+  agent_name: Hermes Agent
+  prompt_symbol: "❯"
+  help_header: "(^_^)? Commands"
+
+tool_prefix: "┊"

@@ -1,0 +1,51 @@
+# Minimalist Ultramarine — generated from palettes.json
+# Source palette: accent=#9CACEC, canvas=#D2D9F4, field=#F2F4FD, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#D2D9F4, paper=#FFFFFF, button=#9CACEC
+name: ultramarine
+description: Minimalist Ultramarine — minimalist light palette
+
+colors:
+  background: "#D2D9F4"
+  ui_accent: "#9CACEC"
+  banner_accent: "#9CACEC"
+  banner_title: "#3A3E41"
+  banner_text: "#3A3E41"
+  ui_text: "#3A3E41"
+  ui_label: "#3A3E41"
+  ui_thinking: "#666A6D"
+  banner_dim: "#666A6D"
+  banner_border: "#F2F4FD"
+  ui_border: "#F2F4FD"
+  ui_tool: "#9CACEC"
+  prompt: "#3A3E41"
+  input_rule: "#9CACEC"
+  response_border: "#F2F4FD"
+  status_bar_bg: "#F2F4FD"
+  status_bar_text: "#3A3E41"
+  status_bar_strong: "#3C4043"
+  status_bar_dim: "#666A6D"
+  status_bar_good: "#2F7D32"
+  status_bar_warn: "#9A6700"
+  status_bar_bad: "#9A6700"
+  status_bar_critical: "#B42318"
+  ui_ok: "#2F7D32"
+  ui_warn: "#9A6700"
+  ui_error: "#B42318"
+  session_label: "#3C4043"
+  session_border: "#F2F4FD"
+  completion_menu_bg: "#FFFFFF"
+  completion_menu_current_bg: "#9CACEC"
+  selection_bg: "#F2F4FD"
+  voice_status_bg: "#D2D9F4"
+  diff_added: "#2F7D32"
+  diff_removed: "#B42318"
+  syntax_string: "#3A3E41"
+  syntax_number: "#9CACEC"
+  syntax_keyword: "#3C4043"
+  syntax_comment: "#666A6D"
+
+branding:
+  agent_name: Hermes Agent
+  prompt_symbol: "❯"
+  help_header: "(^_^)? Commands"
+
+tool_prefix: "┊"

@@ -1,0 +1,51 @@
+# Minimalist Orange Juice — generated from palettes.json
+# Source palette: accent=#F5CBA7, canvas=#FCF1E8, field=#DED4CD, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#FCF1E8, paper=#FFFFFF, button=#F5CBA7
+name: orange-juice
+description: Minimalist Orange Juice — minimalist light palette
+
+colors:
+  background: "#FCF1E8"
+  ui_accent: "#F5CBA7"
+  banner_accent: "#F5CBA7"
+  banner_title: "#3A3E41"
+  banner_text: "#3A3E41"
+  ui_text: "#3A3E41"
+  ui_label: "#3A3E41"
+  ui_thinking: "#666A6D"
+  banner_dim: "#666A6D"
+  banner_border: "#DED4CD"
+  ui_border: "#DED4CD"
+  ui_tool: "#F5CBA7"
+  prompt: "#3A3E41"
+  input_rule: "#F5CBA7"
+  response_border: "#DED4CD"
+  status_bar_bg: "#DED4CD"
+  status_bar_text: "#3A3E41"
+  status_bar_strong: "#3C4043"
+  status_bar_dim: "#666A6D"
+  status_bar_good: "#2F7D32"
+  status_bar_warn: "#9A6700"
+  status_bar_bad: "#9A6700"
+  status_bar_critical: "#B42318"
+  ui_ok: "#2F7D32"
+  ui_warn: "#9A6700"
+  ui_error: "#B42318"
+  session_label: "#3C4043"
+  session_border: "#DED4CD"
+  completion_menu_bg: "#FFFFFF"
+  completion_menu_current_bg: "#F5CBA7"
+  selection_bg: "#DED4CD"
+  voice_status_bg: "#FCF1E8"
+  diff_added: "#2F7D32"
+  diff_removed: "#B42318"
+  syntax_string: "#3A3E41"
+  syntax_number: "#F5CBA7"
+  syntax_keyword: "#3C4043"
+  syntax_comment: "#666A6D"
+
+branding:
+  agent_name: Hermes Agent
+  prompt_symbol: "❯"
+  help_header: "(^_^)? Commands"
+
+tool_prefix: "┊"

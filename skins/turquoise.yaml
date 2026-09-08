@@ -1,0 +1,51 @@
+# Minimalist Turquoise — generated from palettes.json
+# Source palette: accent=#A2D9CE, canvas=#DDF2ED, field=#C3D5D1, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#DDF2ED, paper=#FFFFFF, button=#A2D9CE
+name: turquoise
+description: Minimalist Turquoise — minimalist light palette
+
+colors:
+  background: "#DDF2ED"
+  ui_accent: "#A2D9CE"
+  banner_accent: "#A2D9CE"
+  banner_title: "#3A3E41"
+  banner_text: "#3A3E41"
+  ui_text: "#3A3E41"
+  ui_label: "#3A3E41"
+  ui_thinking: "#666A6D"
+  banner_dim: "#666A6D"
+  banner_border: "#C3D5D1"
+  ui_border: "#C3D5D1"
+  ui_tool: "#A2D9CE"
+  prompt: "#3A3E41"
+  input_rule: "#A2D9CE"
+  response_border: "#C3D5D1"
+  status_bar_bg: "#C3D5D1"
+  status_bar_text: "#3A3E41"
+  status_bar_strong: "#3C4043"
+  status_bar_dim: "#666A6D"
+  status_bar_good: "#2F7D32"
+  status_bar_warn: "#9A6700"
+  status_bar_bad: "#9A6700"
+  status_bar_critical: "#B42318"
+  ui_ok: "#2F7D32"
+  ui_warn: "#9A6700"
+  ui_error: "#B42318"
+  session_label: "#3C4043"
+  session_border: "#C3D5D1"
+  completion_menu_bg: "#FFFFFF"
+  completion_menu_current_bg: "#A2D9CE"
+  selection_bg: "#C3D5D1"
+  voice_status_bg: "#DDF2ED"
+  diff_added: "#2F7D32"
+  diff_removed: "#B42318"
+  syntax_string: "#3A3E41"
+  syntax_number: "#A2D9CE"
+  syntax_keyword: "#3C4043"
+  syntax_comment: "#666A6D"
+
+branding:
+  agent_name: Hermes Agent
+  prompt_symbol: "❯"
+  help_header: "(^_^)? Commands"
+
+tool_prefix: "┊"
