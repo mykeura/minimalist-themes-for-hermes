@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Oceans — generated from palettes.json
 # Source palette: accent=#5EBDF6, canvas=#B9E2FB, field=#F3FAFE, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#B9E2FB, paper=#FFFFFF, button=#5EBDF6
 name: oceans

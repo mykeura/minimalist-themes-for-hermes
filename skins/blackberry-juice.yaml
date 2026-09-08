@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Blackberry Juice — generated from palettes.json
 # Source palette: accent=#C19BEE, canvas=#E6D7F8, field=#FBF9FE, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#E6D7F8, paper=#FFFFFF, button=#C19BEE
 name: blackberry-juice

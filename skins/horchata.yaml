@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Horchata — generated from palettes.json
 # Source palette: accent=#EFD8BE, canvas=#FAF3EA, field=#D1D0CB, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#FAF3EA, paper=#FFFFFF, button=#EFD8BE
 name: horchata

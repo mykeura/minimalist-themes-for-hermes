@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Turquoise — generated from palettes.json
 # Source palette: accent=#A2D9CE, canvas=#DDF2ED, field=#C3D5D1, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#DDF2ED, paper=#FFFFFF, button=#A2D9CE
 name: turquoise

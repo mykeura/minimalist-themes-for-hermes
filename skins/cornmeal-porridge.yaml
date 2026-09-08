@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Cornmeal Porridge — generated from palettes.json
 # Source palette: accent=#FFDA9B, canvas=#F0E8DB, field=#FFF8EB, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#F0E8DB, paper=#FFFFFF, button=#FFDA9B
 name: cornmeal-porridge

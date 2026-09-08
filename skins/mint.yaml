@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Mint — generated from palettes.json
 # Source palette: accent=#B6EFCF, canvas=#D5F5E3, field=#A1D2B7, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#D5F5E3, paper=#FFFFFF, button=#B6EFCF
 name: mint

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Yuzu — generated from palettes.json
 # Source palette: accent=#D6EDA1, canvas=#EEF6DA, field=#DAE0CC, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#EEF6DA, paper=#FFFFFF, button=#D6EDA1
 name: yuzu

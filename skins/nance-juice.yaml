@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Nance Juice — generated from palettes.json
 # Source palette: accent=#F7DC6F, canvas=#FEFCF1, field=#E0DFD6, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#FEFCF1, paper=#FFFFFF, button=#F7DC6F
 name: nance-juice

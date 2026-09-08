@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Beetroot Juice — generated from palettes.json
 # Source palette: accent=#E6B0AA, canvas=#F6E1DF, field=#D8C6C5, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#F6E1DF, paper=#FFFFFF, button=#E6B0AA
 name: beetroot-juice

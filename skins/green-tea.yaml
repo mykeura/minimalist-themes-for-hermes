@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 # Minimalist Green Tea — generated from palettes.json
 # Source palette: accent=#A9DF9C, canvas=#E3F5DE, field=#C8D8C4, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#E3F5DE, paper=#FFFFFF, button=#A9DF9C
 name: green-tea

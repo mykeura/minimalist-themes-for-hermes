@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
 """Genera desktop-plugins/minimalist-themes/plugin.js desde palettes.json.
 
 Algoritmo (documentado, sin valores hardcodeados por tema):
@@ -94,7 +96,10 @@ def main():
         lines.append("    },")
         entries.append("  {\n" + "\n".join(lines) + "\n  },")
     plugin = "\n".join([
-        "/**", " * Minimalist themes for Hermes Desktop — 18 palettes.",
+        "/**",
+        " * Minimalist themes for Hermes Desktop — 18 palettes.",
+        " * SPDX-License-Identifier: MIT",
+        " * Copyright (c) 2026 Miguel Euraque",
         " * Generado por scripts/build-plugin.py (no editar a mano).",
         " * Sessions/Bots difieren por diseno de la app; no se fuerza igualdad.",
         " */", "import { THEMES_AREA } from '@hermes/plugin-sdk'", "",

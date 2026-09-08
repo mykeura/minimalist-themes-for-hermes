@@ -1,5 +1,7 @@
 /**
  * Minimalist themes for Hermes Desktop — 18 palettes.
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2026 Miguel Euraque
  * Generado por scripts/build-plugin.py (no editar a mano).
  * Sessions/Bots difieren por diseno de la app; no se fuerza igualdad.
  */
