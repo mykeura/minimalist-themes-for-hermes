@@ -604,24 +604,24 @@ const THEMES = [
 const THEME_NAMES = new Set(THEMES.map(t => t.name))
 const GLOBAL_THEME_KEY = 'global-theme'
 const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
-const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="blackberry-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="coffee-with-milk"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="cornmeal-porridge"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="diana-yin"] { --minimalist-profile-rail-glyph: #303336; }
-:root[data-hermes-theme="grape-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="green-tea"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="hibiscus-tea"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="horchata"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="mango"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="mint"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="nance-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="oceans"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="orange-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="snow-water"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="turquoise"] { --minimalist-profile-rail-glyph: #3A3E41; }
-:root[data-hermes-theme="ultramarine"] { --minimalist-profile-rail-glyph: #393D40; }
-:root[data-hermes-theme="yuzu"] { --minimalist-profile-rail-glyph: #3A3E41; }
+const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #303336; }
+:root[data-hermes-theme="blackberry-juice"] { --minimalist-profile-rail-glyph: #2C2F31; }
+:root[data-hermes-theme="coffee-with-milk"] { --minimalist-profile-rail-glyph: #2C2F31; }
+:root[data-hermes-theme="cornmeal-porridge"] { --minimalist-profile-rail-glyph: #34373A; }
+:root[data-hermes-theme="diana-yin"] { --minimalist-profile-rail-glyph: #232628; }
+:root[data-hermes-theme="grape-juice"] { --minimalist-profile-rail-glyph: #2C2F31; }
+:root[data-hermes-theme="green-tea"] { --minimalist-profile-rail-glyph: #35383B; }
+:root[data-hermes-theme="hibiscus-tea"] { --minimalist-profile-rail-glyph: #303336; }
+:root[data-hermes-theme="horchata"] { --minimalist-profile-rail-glyph: #373A3D; }
+:root[data-hermes-theme="mango"] { --minimalist-profile-rail-glyph: #373B3E; }
+:root[data-hermes-theme="mint"] { --minimalist-profile-rail-glyph: #35383B; }
+:root[data-hermes-theme="nance-juice"] { --minimalist-profile-rail-glyph: #393D40; }
+:root[data-hermes-theme="oceans"] { --minimalist-profile-rail-glyph: #2C2F31; }
+:root[data-hermes-theme="orange-juice"] { --minimalist-profile-rail-glyph: #35393C; }
+:root[data-hermes-theme="snow-water"] { --minimalist-profile-rail-glyph: #35393C; }
+:root[data-hermes-theme="turquoise"] { --minimalist-profile-rail-glyph: #34373A; }
+:root[data-hermes-theme="ultramarine"] { --minimalist-profile-rail-glyph: #2B2E30; }
+:root[data-hermes-theme="yuzu"] { --minimalist-profile-rail-glyph: #373A3D; }
 
 :root:is(
   [data-hermes-theme="beetroot-juice"],
@@ -647,7 +647,7 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   button.opacity-35.rounded-\\[3px\\].text-\\[0\\.5625rem\\]
 ) {
   color: var(--minimalist-profile-rail-glyph) !important;
-  opacity: 0.95 !important;
+  opacity: 0.85 !important;
   filter: brightness(0.95);
 }
 
