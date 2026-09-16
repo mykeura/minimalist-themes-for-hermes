@@ -8,5 +8,9 @@ minimalist-hermes-themes.zip
 # Capturas de diagnóstico (no se versionan)
 *.png
 
-# Herramienta propia de construccion (no se versiona)
+# Herramientas privadas de generación y auditoría (no se versionan)
 scripts/
+*.py
+
+# Registro local de trabajo (no se versiona)
+PROGRESS.md
