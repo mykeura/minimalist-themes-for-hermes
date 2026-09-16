@@ -606,7 +606,7 @@ const THEMES = [
   },
 ]
 
-// Scoped compatibility enhancement for the profile rail and embedded catalogs.
+// Scoped compatibility enhancement for the profile rail and Capabilities.
 // It only activates while one of these 18 themes is selected; defaults are untouched.
 const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
 const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
@@ -725,6 +725,122 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
 ) section:has([data-tour="tab-skills"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) iframe[src*="embed=picker"] {
   background: var(--minimalist-capabilities-embed-background) !important;
   color-scheme: dark;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-toolsets"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) {
+  --minimalist-capabilities-readable-text: color-mix(in srgb, var(--ui-base) 86%, transparent);
+  --ui-text-secondary: var(--minimalist-capabilities-readable-text);
+  --ui-text-tertiary: var(--minimalist-capabilities-readable-text);
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-toolsets"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) :is([class~="text-muted-foreground/50"], [class~="text-muted-foreground/60"], [class~="text-muted-foreground/70"], [class~="text-muted-foreground/80"]) {
+  color: var(--minimalist-capabilities-readable-text) !important;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-toolsets"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) [class~="text-foreground/85"] {
+  color: var(--ui-text-primary) !important;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-toolsets"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) .cm-editor :is(.cm-content, .cm-content span) {
+  color: var(--ui-text-primary) !important;
+}
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-toolsets"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) .cm-editor .cm-gutters {
+  color: var(--minimalist-capabilities-readable-text) !important;
 }`
 
 function installProfileRailStyle(ctx) {
