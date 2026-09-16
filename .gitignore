@@ -5,8 +5,12 @@ paletas-minimalist.json
 # Artefacto regenerable
 minimalist-hermes-themes.zip
 
-# Capturas de diagnóstico (no se versionan)
+# Capturas de diagnóstico genéricas (no se versionan)
 *.png
+
+# Capturas distribuidas que documentan los temas en README.md
+!images/
+!images/*.png
 
 # Herramientas privadas de generación y auditoría (no se versionan)
 scripts/

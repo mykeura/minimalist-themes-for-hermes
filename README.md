@@ -2,6 +2,8 @@
 
 Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Every palette shares the same interface language while giving the application a distinct character, and each theme appears alongside Hermes’ built-in options in **Settings → Appearance**. The available palettes are Beetroot Juice, Blackberry Juice, Coffee With Milk, Cornmeal Porridge, Diana Yin, Grape Juice, Green Tea, Hibiscus Tea, Horchata, Mango, Mint, Nance Juice, Oceans, Orange Juice, Snow Water, Turquoise, Ultramarine, and Yuzu.
 
+![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
+
 ## Installation
 
 Hermes Desktop and `git` are required. While this repository is private, the GitHub account used to clone it must have read access. Clone the repository, create the application-level desktop plugin directory if needed, and copy the distributable plugin folder into it.
@@ -14,6 +16,22 @@ cp -r /tmp/minimalist-themes-for-hermes/desktop-plugins/minimalist-themes \
 ```
 
 Hermes Desktop plugins are application-level extensions. Install this plugin once in `~/.hermes/desktop-plugins/` so that it remains available when changing profiles; do not copy it into `~/.hermes/profiles/<name>/desktop-plugins/`. Hermes Desktop usually detects the file within a few seconds. If it does not appear, run **Cmd-K → Reload desktop plugins**, then open **Settings → Appearance** and select one of the eighteen themes. If Hermes uses a home directory other than `~/.hermes`, open **Settings → Plugins** to reveal the plugin directory used by that installation.
+
+## Themes
+
+The following screenshots show the eighteen palettes in Hermes Desktop. Select any of them from **Settings → Appearance** after installing the plugin.
+
+|   |   |
+| --- | --- |
+| ![Beetroot Juice](images/beetroot-juice.png)<br>Beetroot Juice | ![Blackberry Juice](images/blackberry-juice.png)<br>Blackberry Juice |
+| ![Coffee With Milk](images/coffee-with-milk.png)<br>Coffee With Milk | ![Cornmeal Porridge](images/cornmeal-porridge.png)<br>Cornmeal Porridge |
+| ![Diana Yin](images/diana-yin.png)<br>Diana Yin | ![Grape Juice](images/grape-juice.png)<br>Grape Juice |
+| ![Green Tea](images/green-tea.png)<br>Green Tea | ![Hibiscus Tea](images/hibiscus-tea.png)<br>Hibiscus Tea |
+| ![Horchata](images/horchata.png)<br>Horchata | ![Mango](images/mango.png)<br>Mango |
+| ![Mint](images/mint.png)<br>Mint | ![Nance Juice](images/nance-juice.png)<br>Nance Juice |
+| ![Oceans](images/oceans.png)<br>Oceans | ![Orange Juice](images/orange-juice.png)<br>Orange Juice |
+| ![Snow Water](images/snow-water.png)<br>Snow Water | ![Turquoise](images/turquoise.png)<br>Turquoise |
+| ![Ultramarine](images/ultramarine.png)<br>Ultramarine | ![Yuzu](images/yuzu.png)<br>Yuzu |
 
 ## Uninstalling
 
