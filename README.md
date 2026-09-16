@@ -1,8 +1,8 @@
 # Minimalist Themes for Hermes Desktop
 
-Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Each palette appears in **Settings → Appearance** alongside Hermes’ built-in themes.
+Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Each palette appears in **Settings → Appearance** alongside Hermes’ built-in themes. When you choose a Minimalist theme, the plugin keeps it selected as you switch Desktop profiles; choosing a non-Minimalist theme returns control to Hermes’ normal profile-specific behavior.
 
-**Current version:** 1.0.0 — the first stable release.
+**Current version:** 1.0.1 — a maintenance release.
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 

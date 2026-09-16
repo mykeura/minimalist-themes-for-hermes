@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Miguel Euraque
-import { THEMES_AREA } from '@hermes/plugin-sdk'
+import { THEMES_AREA, host, requestTheme } from '@hermes/plugin-sdk'
 
 const ID = 'minimalist-themes'
 
@@ -601,6 +601,8 @@ const THEMES = [
   },
 ]
 
+const THEME_NAMES = new Set(THEMES.map(t => t.name))
+const GLOBAL_THEME_KEY = 'global-theme'
 const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
 const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
 :root[data-hermes-theme="blackberry-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
@@ -836,6 +838,61 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   color: var(--minimalist-capabilities-readable-text) !important;
 }`
 
+function installGlobalThemeLock(ctx) {
+  if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return
+  const root = document.documentElement
+  const visibleTheme = () => THEME_NAMES.has(root.dataset.hermesTheme) ? root.dataset.hermesTheme : null
+  let lockedTheme = ctx.storage.get(GLOBAL_THEME_KEY, null)
+  if (!THEME_NAMES.has(lockedTheme)) lockedTheme = null
+  if (!lockedTheme && visibleTheme()) {
+    lockedTheme = visibleTheme()
+    ctx.storage.set(GLOBAL_THEME_KEY, lockedTheme)
+  }
+  let switchingProfile = false
+  let frame = null
+  const restoreTheme = () => {
+    frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(() => {
+        frame = null
+        if (lockedTheme) requestTheme(lockedTheme)
+        switchingProfile = false
+      })
+    })
+  }
+  const observer = new MutationObserver(() => {
+    if (switchingProfile) return
+    const theme = visibleTheme()
+    if (theme) {
+      lockedTheme = theme
+      ctx.storage.set(GLOBAL_THEME_KEY, theme)
+    } else {
+      lockedTheme = null
+      ctx.storage.remove(GLOBAL_THEME_KEY)
+    }
+  })
+  observer.observe(root, { attributes: true, attributeFilter: ['data-hermes-theme'] })
+  let initialProfile = true
+  const unsubscribe = host.state.profile.subscribe(() => {
+    if (initialProfile) {
+      initialProfile = false
+      if (lockedTheme && visibleTheme() !== lockedTheme) {
+        switchingProfile = true
+        restoreTheme()
+      }
+      return
+    }
+    if (!lockedTheme) return
+    switchingProfile = true
+    if (frame !== null) cancelAnimationFrame(frame)
+    restoreTheme()
+  })
+  ctx.onDispose(() => {
+    if (frame !== null) cancelAnimationFrame(frame)
+    observer.disconnect()
+    unsubscribe()
+  })
+}
+
 function installProfileRailStyle(ctx) {
   if (typeof document === 'undefined') return
   document.getElementById(PROFILE_RAIL_STYLE_ID)?.remove()
@@ -850,6 +907,7 @@ export default {
   id: ID,
   name: 'Minimalist Themes',
   register(ctx) {
+    installGlobalThemeLock(ctx)
     installProfileRailStyle(ctx)
     for (const t of THEMES) {
       const theme = { ...t, colors: { ...t.colors }, darkColors: { ...t.colors } }
