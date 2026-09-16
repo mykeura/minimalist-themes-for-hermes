@@ -57,6 +57,11 @@ completo de la API de Hermes Desktop. La auditoría estática del artefacto actu
 verificó 180 combinaciones declaradas de texto y superficie: ninguna baja de
 **4.5:1** de contraste WCAG AA para texto normal (mínimo: **4.525:1**).
 
+También reproduce las superficies que Hermes Desktop pinta realmente mediante
+`color-mix()`: las 108 comprobaciones de texto primario y las 36 de texto de
+acento en sidebar/editor superan **4.5:1** (mínimos: **5.252:1** y
+**4.502:1**, respectivamente).
+
 Esa comprobación cubre los tokens declarados del tema; tras actualizar Hermes
 Desktop, comprueba visualmente Settings, Sessions, Bots, el compositor y los
 popovers antes de distribuir una nueva versión.
