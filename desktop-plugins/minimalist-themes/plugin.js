@@ -1,10 +1,5 @@
-/**
- * Minimalist themes for Hermes Desktop — 18 palettes.
- * SPDX-License-Identifier: MIT
- * Copyright (c) 2026 Miguel Euraque
- * Generado por scripts/build-plugin.py (no editar a mano).
- * Sessions/Bots difieren por diseno de la app; no se fuerza igualdad.
- */
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Miguel Euraque
 import { THEMES_AREA } from '@hermes/plugin-sdk'
 
 const ID = 'minimalist-themes'
@@ -606,8 +601,6 @@ const THEMES = [
   },
 ]
 
-// Scoped compatibility enhancement for the profile rail and Capabilities.
-// It only activates while one of these 18 themes is selected; defaults are untouched.
 const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
 const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
 :root[data-hermes-theme="blackberry-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
