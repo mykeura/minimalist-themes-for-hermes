@@ -1,21 +1,10 @@
-# Minimalist Themes para Hermes Desktop
+# Minimalist Themes for Hermes Desktop
 
-18 paletas minimalistas (mismo diseño, distinto color) para Hermes Desktop.
-Aparecen en **Settings → Appearance** junto a los temas incluidos.
+Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Every palette shares the same interface language while giving the application a distinct character, and each theme appears alongside Hermes’ built-in options in **Settings → Appearance**. The available palettes are Beetroot Juice, Blackberry Juice, Coffee With Milk, Cornmeal Porridge, Diana Yin, Grape Juice, Green Tea, Hibiscus Tea, Horchata, Mango, Mint, Nance Juice, Oceans, Orange Juice, Snow Water, Turquoise, Ultramarine, and Yuzu.
 
-| | | |
-|---|---|---|
-| Beetroot Juice | Blackberry Juice | Coffee With Milk |
-| Cornmeal Porridge | Diana Yin | Grape Juice |
-| Green Tea | Hibiscus Tea | Horchata |
-| Mango | Mint | Nance Juice |
-| Oceans | Orange Juice | Snow Water |
-| Turquoise | Ultramarine | Yuzu |
+## Installation
 
-## Instalación
-
-Necesitas `git` y Hermes Desktop. Mientras el repositorio sea privado, tu cuenta
-GitHub debe tener acceso de lectura.
+Hermes Desktop and `git` are required. While this repository is private, the GitHub account used to clone it must have read access. Clone the repository, create the application-level desktop plugin directory if needed, and copy the distributable plugin folder into it.
 
 ```bash
 git clone https://github.com/mykeura/minimalist-themes-for-hermes /tmp/minimalist-themes-for-hermes
@@ -24,55 +13,24 @@ cp -r /tmp/minimalist-themes-for-hermes/desktop-plugins/minimalist-themes \
       "$HOME/.hermes/desktop-plugins/"
 ```
 
-Los plugins de Hermes Desktop son de ámbito **app-level**: se instalan una sola
-vez en `~/.hermes/desktop-plugins/` y permanecen disponibles al cambiar de
-perfil. No los copies a `~/.hermes/profiles/<nombre>/desktop-plugins/`.
+Hermes Desktop plugins are application-level extensions. Install this plugin once in `~/.hermes/desktop-plugins/` so that it remains available when changing profiles; do not copy it into `~/.hermes/profiles/<name>/desktop-plugins/`. Hermes Desktop usually detects the file within a few seconds. If it does not appear, run **Cmd-K → Reload desktop plugins**, then open **Settings → Appearance** and select one of the eighteen themes. If Hermes uses a home directory other than `~/.hermes`, open **Settings → Plugins** to reveal the plugin directory used by that installation.
 
-El Desktop detecta el archivo automáticamente en unos segundos. Si no aparece,
-en Hermes Desktop usa **Cmd-K → Reload desktop plugins**. Después abre
-**Settings → Appearance** y elige uno de los 18 temas.
+## Uninstalling
 
-> Si tu instalación de Hermes usa una raíz distinta de `~/.hermes`, abre
-> **Settings → Plugins**: esa pantalla muestra la carpeta local de plugins de
-> esta aplicación.
+Remove the `minimalist-themes` directory from the Desktop plugins directory, reload desktop plugins, and choose another appearance. The plugin has no network dependency and leaves no persistent application state behind when removed.
 
-## Desinstalar
+## Scope and contents
 
-Borra la carpeta `minimalist-themes` de `desktop-plugins`, recarga los plugins
-y elige otro tema. No queda ningún rastro.
+`desktop-plugins/minimalist-themes/plugin.js` is the complete distributable Desktop plugin. It registers all eighteen themes through `THEMES_AREA` as full `DesktopTheme` values, so it affects only the Hermes Desktop appearance picker and does not change the CLI or TUI. The repository also includes corresponding `skins/*.yaml` files for CLI and TUI use through `hermes skin use <name>`; installing those skins is optional and is not required to use the Desktop themes.
 
-## Contenido
+## Readability and compatibility
 
-- `desktop-plugins/minimalist-themes/plugin.js` — el plugin: 18 temas,
-  un solo archivo, sin dependencias ni red. **Solo aplica a la app Hermes
-  Desktop** (panel Appearance); no afecta a la CLI ni a la TUI.
-- `skins/*.yaml` — las mismas paletas como skins del backend para **CLI/TUI**
-  (`hermes skin use <nombre>`; verificado que activan). No es necesario para
-  usar los temas en el Desktop.
+The generated plugin has been statically audited against the Desktop theme contract. Its 180 declared text-and-surface combinations meet WCAG AA contrast for normal text, with a lowest measured ratio of 4.525:1. The audit also models the composed `color-mix()` surfaces that Hermes Desktop paints in the sidebar and editor. All 108 primary-text checks and all 36 accent-text checks exceed 4.5:1, with respective minimum ratios of 5.252:1 and 4.502:1.
 
-## Legibilidad y compatibilidad
+The plugin also improves the horizontal profile rail while one of its eighteen themes is selected. It keeps the profile color identity, uses a palette-specific softened glyph ink, retains five percent transparency, and darkens the square very slightly. The check covers every one of Hermes’ 360 deterministic profile hues in both active and inactive profile-tint states. All 12,960 composed cases meet 4.5:1, with a lowest measured ratio of 4.511:1.
 
-El plugin registra cada paleta mediante `THEMES_AREA` como un `DesktopTheme`
-completo de la API de Hermes Desktop. La auditoría estática del artefacto actual
-verificó 180 combinaciones declaradas de texto y superficie: ninguna baja de
-**4.5:1** de contraste WCAG AA para texto normal (mínimo: **4.525:1**).
+This profile-rail improvement is deliberately scoped to the plugin’s own `data-hermes-theme` names, so built-in and other third-party themes keep their default appearance. Hermes Desktop does not currently expose profile-rail colors as public `DesktopTheme` tokens, so the enhancement is installed and removed with the plugin lifecycle as a compatibility layer. If a future Hermes release changes the profile-rail markup, the themes will continue to work, but this targeted enhancement should be checked visually after the update. Before distributing a new plugin version, review Settings, Sessions, Bots, the composer, popovers, and the profile rail in the current Desktop release.
 
-También reproduce las superficies que Hermes Desktop pinta realmente mediante
-`color-mix()`: las 108 comprobaciones de texto primario y las 36 de texto de
-acento en sidebar/editor superan **4.5:1** (mínimos: **5.252:1** y
-**4.502:1**, respectivamente).
+## Light palettes and private source
 
-Esa comprobación cubre los tokens declarados del tema; tras actualizar Hermes
-Desktop, comprueba visualmente Settings, Sessions, Bots, el compositor y los
-popovers antes de distribuir una nueva versión.
-
-## Paletas claras y fuente privada
-
-Estas son paletas claras y cálidas; no incluyen una variante oscura diseñada por
-separado. `darkColors` conserva los mismos valores para mantener la identidad
-de cada paleta en vez de convertirla en un tema oscuro.
-
-`desktop-plugins/minimalist-themes/plugin.js` es el artefacto distribuible y
-versionado. La fuente de paletas y la herramienta de generación permanecen
-privadas deliberadamente: no son necesarias para instalar ni usar los 18 temas,
-pero tampoco se incluyen en un clon público para regenerarlos.
+These palettes are intentionally warm and light. They do not include separately designed dark variants; `darkColors` keeps the same values to preserve each palette’s identity rather than converting it into a dark theme. The versioned `plugin.js` file is the public, installable artifact. The palette source data and generation tool remain private by design because they are not needed to install or use the established palettes, and are not included in a public clone for regeneration.

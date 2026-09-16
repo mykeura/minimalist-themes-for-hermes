@@ -606,10 +606,71 @@ const THEMES = [
   },
 ]
 
+// Scoped compatibility enhancement for Hermes Desktop's profile rail.
+// It only activates while one of these 18 themes is selected; defaults are untouched.
+const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
+const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="blackberry-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="coffee-with-milk"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="cornmeal-porridge"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="diana-yin"] { --minimalist-profile-rail-glyph: #303336; }
+:root[data-hermes-theme="grape-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="green-tea"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="hibiscus-tea"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="horchata"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="mango"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="mint"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="nance-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="oceans"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="orange-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="snow-water"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="turquoise"] { --minimalist-profile-rail-glyph: #3A3E41; }
+:root[data-hermes-theme="ultramarine"] { --minimalist-profile-rail-glyph: #393D40; }
+:root[data-hermes-theme="yuzu"] { --minimalist-profile-rail-glyph: #3A3E41; }
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) :is(
+  button.cursor-grab.touch-none.rounded-\\[3px\\].text-\\[0\\.5625rem\\][aria-pressed],
+  button.opacity-35.rounded-\\[3px\\].text-\\[0\\.5625rem\\]
+) {
+  color: var(--minimalist-profile-rail-glyph) !important;
+  opacity: 0.95 !important;
+  filter: brightness(0.95);
+}`
+
+function installProfileRailStyle(ctx) {
+  if (typeof document === 'undefined') return
+  document.getElementById(PROFILE_RAIL_STYLE_ID)?.remove()
+  const style = document.createElement('style')
+  style.id = PROFILE_RAIL_STYLE_ID
+  style.textContent = PROFILE_RAIL_CSS
+  document.head.append(style)
+  ctx.onDispose(() => style.remove())
+}
+
 export default {
   id: ID,
   name: 'Minimalist Themes',
   register(ctx) {
+    installProfileRailStyle(ctx)
     for (const t of THEMES) {
       const theme = { ...t, colors: { ...t.colors }, darkColors: { ...t.colors } }
       ctx.register({ id: t.name, area: THEMES_AREA, data: theme })
