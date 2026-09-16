@@ -606,7 +606,7 @@ const THEMES = [
   },
 ]
 
-// Scoped compatibility enhancement for Hermes Desktop's profile rail.
+// Scoped compatibility enhancement for the profile rail and embedded catalogs.
 // It only activates while one of these 18 themes is selected; defaults are untouched.
 const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
 const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #3A3E41; }
@@ -654,6 +654,77 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   color: var(--minimalist-profile-rail-glyph) !important;
   opacity: 0.95 !important;
   filter: brightness(0.95);
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) {
+  --minimalist-capabilities-embed-background: #0E0E0E;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) div:has(> iframe[src*="embed=picker"]) {
+  background: var(--minimalist-capabilities-embed-background) !important;
+  color-scheme: dark;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) section:has([data-tour="tab-skills"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) iframe[src*="embed=picker"] {
+  background: var(--minimalist-capabilities-embed-background) !important;
+  color-scheme: dark;
 }`
 
 function installProfileRailStyle(ctx) {
