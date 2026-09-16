@@ -1,25 +1,27 @@
 # Minimalist Themes for Hermes Desktop
 
-Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Every palette shares the same interface language while giving the application a distinct character, and each theme appears alongside Hermes’ built-in options in **Settings → Appearance**. The available palettes are Beetroot Juice, Blackberry Juice, Coffee With Milk, Cornmeal Porridge, Diana Yin, Grape Juice, Green Tea, Hibiscus Tea, Horchata, Mango, Mint, Nance Juice, Oceans, Orange Juice, Snow Water, Turquoise, Ultramarine, and Yuzu.
+Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Each palette appears in **Settings → Appearance** alongside Hermes’ built-in themes.
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 
 ## Installation
 
-Hermes Desktop and `git` are required. While this repository is private, the GitHub account used to clone it must have read access. Clone the repository, create the application-level desktop plugin directory if needed, and copy the distributable plugin folder into it.
+On Linux and macOS, clone the repository and copy the installable Desktop plugin into Hermes’ application-level plugin directory:
 
 ```bash
 git clone https://github.com/mykeura/minimalist-themes-for-hermes /tmp/minimalist-themes-for-hermes
-mkdir -p "$HOME/.hermes/desktop-plugins"
-cp -r /tmp/minimalist-themes-for-hermes/desktop-plugins/minimalist-themes \
-      "$HOME/.hermes/desktop-plugins/"
+mkdir -p "$HOME/.hermes/desktop-plugins/minimalist-themes"
+cp /tmp/minimalist-themes-for-hermes/desktop-plugins/minimalist-themes/plugin.js \
+   "$HOME/.hermes/desktop-plugins/minimalist-themes/plugin.js"
 ```
 
-Hermes Desktop plugins are application-level extensions. Install this plugin once in `~/.hermes/desktop-plugins/` so that it remains available when changing profiles; do not copy it into `~/.hermes/profiles/<name>/desktop-plugins/`. Hermes Desktop usually detects the file within a few seconds. If it does not appear, run **Cmd-K → Reload desktop plugins**, then open **Settings → Appearance** and select one of the eighteen themes. If Hermes uses a home directory other than `~/.hermes`, open **Settings → Plugins** to reveal the plugin directory used by that installation.
+Hermes Desktop watches this directory and normally loads the plugin within a few seconds. If the themes do not appear, open the Command Palette, run **Reload desktop plugins**, and then choose a theme from **Settings → Appearance**.
+
+The default Desktop plugin directory is `~/.hermes/desktop-plugins/`. If your Desktop installation uses a custom `HERMES_HOME`, use its `desktop-plugins/minimalist-themes/plugin.js` path instead. On Windows, open **Settings → Plugins** to reveal the Desktop plugin directory, create a `minimalist-themes` folder there, and copy `plugin.js` into it.
 
 ## Themes
 
-The following screenshots show the eighteen palettes in Hermes Desktop. Select any of them from **Settings → Appearance** after installing the plugin.
+The following screenshots show the eighteen palettes available after installation.
 
 |   |   |
 | --- | --- |
@@ -33,26 +35,18 @@ The following screenshots show the eighteen palettes in Hermes Desktop. Select a
 | ![Snow Water](images/snow-water.png)<br>Snow Water | ![Turquoise](images/turquoise.png)<br>Turquoise |
 | ![Ultramarine](images/ultramarine.png)<br>Ultramarine | ![Yuzu](images/yuzu.png)<br>Yuzu |
 
+## Updating
+
+Pull the latest repository version, copy `desktop-plugins/minimalist-themes/plugin.js` to the same installed location, and run **Reload desktop plugins** from the Command Palette if Hermes does not reload it automatically.
+
 ## Uninstalling
 
-Remove the `minimalist-themes` directory from the Desktop plugins directory, reload desktop plugins, and choose another appearance. The plugin has no network dependency and leaves no persistent application state behind when removed.
+Remove the `minimalist-themes` folder from the Desktop plugin directory, reload Desktop plugins from the Command Palette, and select another appearance.
 
-## Scope and contents
+## About the palettes
 
-`desktop-plugins/minimalist-themes/plugin.js` is the complete distributable Desktop plugin. It registers all eighteen themes through `THEMES_AREA` as full `DesktopTheme` values, so it affects only the Hermes Desktop appearance picker and does not change the CLI or TUI. The repository also includes corresponding `skins/*.yaml` files for CLI and TUI use through `hermes skin use <name>`; installing those skins is optional and is not required to use the Desktop themes.
+These are intentionally warm, light palettes. They use the same palette when Hermes Desktop is in dark mode rather than offering separately designed dark variants. The plugin affects Hermes Desktop only and does not change the CLI or TUI.
 
-## Readability and compatibility
+## License
 
-The generated plugin has been statically audited against the Desktop theme contract. Its 180 declared text-and-surface combinations meet WCAG AA contrast for normal text, with a lowest measured ratio of 4.525:1. The audit also models the composed `color-mix()` surfaces that Hermes Desktop paints in the sidebar and editor. All 108 primary-text checks and all 36 accent-text checks exceed 4.5:1, with respective minimum ratios of 5.252:1 and 4.502:1.
-
-The plugin also improves the horizontal profile rail while one of its eighteen themes is selected. It keeps the profile color identity, uses a palette-specific softened glyph ink, retains five percent transparency, and darkens the square very slightly. The check covers every one of Hermes’ 360 deterministic profile hues in both active and inactive profile-tint states. All 12,960 composed cases meet 4.5:1, with a lowest measured ratio of 4.511:1.
-
-This profile-rail improvement is deliberately scoped to the plugin’s own `data-hermes-theme` names, so built-in and other third-party themes keep their default appearance. Hermes Desktop does not currently expose profile-rail colors as public `DesktopTheme` tokens, so the enhancement is installed and removed with the plugin lifecycle as a compatibility layer. If a future Hermes release changes the profile-rail markup, the themes will continue to work, but this targeted enhancement should be checked visually after the update.
-
-The Skills Hub and Plugin Catalog are cross-origin websites embedded inside the Capabilities page, so their internal CSS is not directly controlled by the Desktop plugin. Their documents use transparent roots and choose a stylesheet from the inherited color scheme. The compatibility layer therefore leaves the local Capabilities page in its normal theme and scopes Mono’s `#0E0E0E` background and dark color scheme only to those two iframe hosts. This preserves the sites’ own dark CSS, including their text and controls, without changing built-in themes or unrelated pages.
-
-The same narrowly scoped layer improves the local Capabilities lists and MCP editor. It raises secondary and tertiary metadata to a verified readable ink, prevents additional slash-opacity utilities from fading MCP status and catalog labels, and renders the transparent JSON editor with the palette’s validated primary ink and readable gutters. This intentionally favors legibility over GitHub’s fixed syntax colors only in the MCP JSON editor; JSON remains structured and editable. The private audit records the original 123 failing checks across the eighteen palettes and verifies the resulting 90 relevant text treatments at WCAG AA, with a lowest measured ratio of 4.736:1. Before distributing a new plugin version, review Settings, Sessions, Bots, the composer, popovers, the profile rail, the embedded Skills Hub and Plugin Catalog, and the MCP editor in the current Desktop release.
-
-## Light palettes and private source
-
-These palettes are intentionally warm and light. They do not include separately designed dark variants; `darkColors` keeps the same values to preserve each palette’s identity rather than converting it into a dark theme. The versioned `plugin.js` file is the public, installable artifact. The palette source data and generation tool remain private by design because they are not needed to install or use the established palettes, and are not included in a public clone for regeneration.
+MIT — see [LICENSE](LICENSE).

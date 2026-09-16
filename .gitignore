@@ -16,5 +16,6 @@ minimalist-hermes-themes.zip
 scripts/
 *.py
 
-# Registro local de trabajo (no se versiona)
+# Registros y notas locales de mantenimiento (no se versionan)
 PROGRESS.md
+MAINTAINER.md
