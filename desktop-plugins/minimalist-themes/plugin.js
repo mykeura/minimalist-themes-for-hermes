@@ -836,6 +836,146 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   [data-hermes-theme="yuzu"]
 ) section:has([data-tour="tab-skills"]):has([data-tour="tab-toolsets"]):has([data-tour="tab-mcp"]):has([data-tour="tab-plugins"]) .cm-editor .cm-gutters {
   color: var(--minimalist-capabilities-readable-text) !important;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) [data-overlay-surface]:has([data-panel-row="default"]) {
+  --minimalist-profiles-readable-text: color-mix(in srgb, var(--ui-base) 86%, transparent);
+  --ui-text-secondary: var(--minimalist-profiles-readable-text);
+  --ui-text-tertiary: var(--minimalist-profiles-readable-text);
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) [data-overlay-surface]:has([data-panel-row="default"]) :is([class~="text-muted-foreground/45"], [class~="text-muted-foreground/50"], [class~="text-muted-foreground/55"], [class~="text-muted-foreground/60"], [class~="text-muted-foreground/70"], [class~="text-muted-foreground/80"]) {
+  color: var(--minimalist-profiles-readable-text) !important;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) [data-overlay-surface]:has([data-panel-row="default"]) :is([class~="text-foreground/80"], [class~="text-foreground/85"], [class~="text-foreground/90"]) {
+  color: var(--ui-text-primary) !important;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) [data-overlay-surface]:has([data-panel-row="default"]) .cm-editor :is(.cm-content, .cm-content span) {
+  color: var(--ui-text-primary) !important;
+}
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) [data-overlay-surface]:has([data-panel-row="default"]) .cm-editor .cm-gutters {
+  color: var(--minimalist-profiles-readable-text) !important;
+}
+
+/* CodeMirror draws selection separately from the native ::selection highlight. */
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
+) [data-overlay-surface]:has([data-panel-row="default"]) .cm-editor .cm-selectionBackground {
+  background-color: color-mix(in srgb, var(--ui-text-primary) 18%, transparent) !important;
 }`
 
 function installGlobalThemeLock(ctx) {
@@ -915,4 +1055,3 @@ export default {
     }
   }
 }
-
