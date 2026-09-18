@@ -981,56 +981,165 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
 function installGlobalThemeLock(ctx) {
   if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return
   const root = document.documentElement
-  const visibleTheme = () => THEME_NAMES.has(root.dataset.hermesTheme) ? root.dataset.hermesTheme : null
-  let lockedTheme = ctx.storage.get(GLOBAL_THEME_KEY, null)
-  if (!THEME_NAMES.has(lockedTheme)) lockedTheme = null
-  if (!lockedTheme && visibleTheme()) {
-    lockedTheme = visibleTheme()
-    ctx.storage.set(GLOBAL_THEME_KEY, lockedTheme)
+  const stored = ctx.storage.get('profile-themes', {})
+  const overrides = Object.create(null)
+  if (stored && typeof stored === 'object' && !Array.isArray(stored)) {
+    for (const [profile, theme] of Object.entries(stored)) {
+      if (THEME_NAMES.has(theme)) overrides[profile] = theme
+    }
   }
-  let switchingProfile = false
+  let globalTheme = ctx.storage.get(GLOBAL_THEME_KEY, null)
+  if (!THEME_NAMES.has(globalTheme)) globalTheme = null
+  let activeProfile = 'default'
+  let initialized = false
+  let applying = false
+  let appliedTheme = null
+  let switching = false
   let frame = null
-  const restoreTheme = () => {
-    frame = requestAnimationFrame(() => {
-      frame = requestAnimationFrame(() => {
-        frame = null
-        if (lockedTheme) requestTheme(lockedTheme)
-        switchingProfile = false
-      })
-    })
+  let refresh = () => {}
+  const target = () => overrides[activeProfile] || globalTheme
+  const apply = () => {
+    const theme = target()
+    if (!theme) return
+    appliedTheme = theme
+    applying = true
+    try { requestTheme(theme) } finally { applying = false }
   }
   const observer = new MutationObserver(() => {
-    if (switchingProfile) return
-    const theme = visibleTheme()
-    if (theme) {
-      lockedTheme = theme
-      ctx.storage.set(GLOBAL_THEME_KEY, theme)
-    } else {
-      lockedTheme = null
-      ctx.storage.remove(GLOBAL_THEME_KEY)
-    }
-  })
-  observer.observe(root, { attributes: true, attributeFilter: ['data-hermes-theme'] })
-  let initialProfile = true
-  const unsubscribe = host.state.profile.subscribe(() => {
-    if (initialProfile) {
-      initialProfile = false
-      if (lockedTheme && visibleTheme() !== lockedTheme) {
-        switchingProfile = true
-        restoreTheme()
-      }
+    if (applying) return
+    if (switching) {
+      if (target() && root.dataset.hermesTheme !== target()) apply()
       return
     }
-    if (!lockedTheme) return
-    switchingProfile = true
+    const theme = root.dataset.hermesTheme
+    if (theme === appliedTheme) return
+    appliedTheme = null
+    globalTheme = THEME_NAMES.has(theme) ? theme : null
+    if (globalTheme) ctx.storage.set(GLOBAL_THEME_KEY, globalTheme)
+    else ctx.storage.remove(GLOBAL_THEME_KEY)
+  })
+  observer.observe(root, { attributes: true, attributeFilter: ['data-hermes-theme'] })
+  const unsubscribe = host.state.profile.subscribe(profile => {
+    activeProfile = typeof profile === 'string' && profile ? profile : 'default'
+    if (!initialized) {
+      initialized = true
+      const visible = root.dataset.hermesTheme
+      if (!globalTheme && !overrides[activeProfile] && THEME_NAMES.has(visible)) {
+        globalTheme = visible
+        ctx.storage.set(GLOBAL_THEME_KEY, globalTheme)
+      }
+    }
+    switching = true
     if (frame !== null) cancelAnimationFrame(frame)
-    restoreTheme()
+    apply()
+    frame = requestAnimationFrame(() => { frame = null; switching = false })
+    refresh()
+  })
+  refresh = installProfileThemeSettings(ctx, {
+    active: () => activeProfile,
+    selected: profile => overrides[profile] || '',
+    set(profile, theme) {
+      if (THEME_NAMES.has(theme)) overrides[profile] = theme
+      else delete overrides[profile]
+      ctx.storage.set('profile-themes', { ...overrides })
+      if (profile === activeProfile) apply()
+    }
   })
   ctx.onDispose(() => {
     if (frame !== null) cancelAnimationFrame(frame)
     observer.disconnect()
     unsubscribe()
   })
+}
+
+// Hermes has no custom plugin settings contribution. Keep this compatibility
+// surface strictly inside this plugin's own detail row.
+function installProfileThemeSettings(ctx, controller) {
+  const sectionId = `${ID}-profile-settings`
+  let section = null
+  let signature = ''
+  let pending = null
+  let disposed = false
+  let inventory = []
+  let loading = false
+  const listeners = []
+  const clear = () => {
+    for (const [select, listener] of listeners.splice(0)) select.removeEventListener('change', listener)
+    section?.remove()
+    section = null
+  }
+  const render = () => {
+    pending = null
+    if (disposed) return
+    const row = document.getElementById('plugin-minimalist-themes')
+    if (!row) { clear(); signature = ''; return }
+    const names = new Set(['default', controller.active()])
+    for (const route of inventory) {
+        const name = typeof route === 'string' ? route : route.profile
+        if (typeof name === 'string' && name) names.add(name)
+    }
+    const profiles = [...names].sort((a, b) => a === 'default' ? -1 : b === 'default' ? 1 : a.localeCompare(b))
+    const next = JSON.stringify(profiles.map(name => [name, controller.selected(name)]))
+    if (section?.parentNode === row && signature === next) return
+    clear()
+    document.getElementById(sectionId)?.remove()
+    signature = next
+    section = document.createElement('section')
+    section.id = sectionId
+    section.style.cssText = 'margin-top:12px;padding-top:12px;border-top:1px solid var(--ui-stroke-secondary);color:var(--ui-text-primary);'
+    const heading = document.createElement('h4')
+    heading.textContent = 'Profile themes'
+    heading.style.cssText = 'margin:0 0 4px;font-size:13px;font-weight:600;'
+    const help = document.createElement('p')
+    help.textContent = 'Default inherits your current Minimalist theme.'
+    help.style.cssText = 'margin:0 0 10px;font-size:12px;color:var(--ui-text-secondary);'
+    section.append(heading, help)
+    for (const profile of profiles) {
+      const label = document.createElement('label')
+      label.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;font-size:12px;'
+      const name = document.createElement('span')
+      name.textContent = profile
+      name.style.cssText = 'overflow-wrap:anywhere;min-width:0;'
+      const select = document.createElement('select')
+      select.setAttribute('aria-label', `Theme for profile ${profile}`)
+      select.style.cssText = 'max-width:65%;padding:5px 8px;border:1px solid var(--ui-stroke-secondary);border-radius:6px;background:var(--ui-bg-chrome);color:var(--ui-text-primary);'
+      for (const theme of [{ name: '', label: 'Default' }, ...THEMES]) {
+        const option = document.createElement('option')
+        option.value = theme.name
+        option.textContent = theme.label
+        select.append(option)
+      }
+      select.value = controller.selected(profile)
+      const listener = () => { controller.set(profile, select.value); schedule() }
+      select.addEventListener('change', listener)
+      listeners.push([select, listener])
+      label.append(name, select)
+      section.append(label)
+    }
+    row.append(section)
+  }
+  const schedule = () => {
+    if (!disposed && pending === null) pending = requestAnimationFrame(render)
+  }
+  const refresh = () => {
+    schedule()
+    if (loading || disposed || typeof host.profileRoutes !== 'function') return
+    loading = true
+    Promise.resolve().then(() => host.profileRoutes()).then(routes => {
+      if (!disposed && Array.isArray(routes)) inventory = routes.filter(route => route && typeof route === 'object')
+    }).catch(() => {}).finally(() => { loading = false; schedule() })
+  }
+  const observer = new MutationObserver(schedule)
+  observer.observe(document.documentElement, { childList: true, subtree: true })
+  render()
+  refresh()
+  ctx.onDispose(() => {
+    disposed = true
+    observer.disconnect()
+    if (pending !== null) cancelAnimationFrame(pending)
+    clear()
+  })
+  return refresh
 }
 
 function installProfileRailStyle(ctx) {
@@ -1046,12 +1155,13 @@ function installProfileRailStyle(ctx) {
 export default {
   id: ID,
   name: 'Minimalist Themes',
+  description: 'Minimalist Themes by @mykeura — 18 warm, readable palettes for a cleaner Hermes Desktop.',
   register(ctx) {
-    installGlobalThemeLock(ctx)
-    installProfileRailStyle(ctx)
     for (const t of THEMES) {
       const theme = { ...t, colors: { ...t.colors }, darkColors: { ...t.colors } }
       ctx.register({ id: t.name, area: THEMES_AREA, data: theme })
     }
+    installProfileRailStyle(ctx)
+    installGlobalThemeLock(ctx)
   }
 }

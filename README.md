@@ -2,7 +2,11 @@
 
 Minimalist Themes provides eighteen warm, light color palettes for Hermes Desktop. Each palette appears in **Settings → Appearance** alongside Hermes’ built-in themes. When you choose a Minimalist theme, the plugin keeps it selected as you switch Desktop profiles; choosing a non-Minimalist theme returns control to Hermes’ normal profile-specific behavior.
 
-**Current version:** 1.0.1 — a maintenance release.
+**Current version:** 1.2.0 — per-profile theme overrides and immediate theme restoration after the plugin loads.
+
+Open **Capabilities → Plugins → Minimalist Themes** to choose a theme for each profile. Each selector offers **Default** plus all eighteen palettes. Default inherits your current global Minimalist theme; an explicit selection is saved and applied whenever you enter that profile. Choosing a Minimalist theme in Appearance updates the global choice. Choosing a non-Minimalist theme releases the global lock.
+
+Theme restoration starts immediately after registration. Hermes loads disk plugins asynchronously, so the plugin cannot prevent a brief appearance of the initial theme before its loader runs. The profile controls use a narrowly scoped compatibility integration with the plugin detail row because Hermes does not currently expose custom plugin settings.
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 
