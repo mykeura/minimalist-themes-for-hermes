@@ -674,6 +674,29 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   [data-hermes-theme="turquoise"],
   [data-hermes-theme="ultramarine"],
   [data-hermes-theme="yuzu"]
+) [class~="bg-(--ui-surface-background)"]:has(> header .codicon-organization) {
+  background-color: var(--theme-background-seed, var(--ui-bg-chrome)) !important;
+}
+
+:root:is(
+  [data-hermes-theme="beetroot-juice"],
+  [data-hermes-theme="blackberry-juice"],
+  [data-hermes-theme="coffee-with-milk"],
+  [data-hermes-theme="cornmeal-porridge"],
+  [data-hermes-theme="diana-yin"],
+  [data-hermes-theme="grape-juice"],
+  [data-hermes-theme="green-tea"],
+  [data-hermes-theme="hibiscus-tea"],
+  [data-hermes-theme="horchata"],
+  [data-hermes-theme="mango"],
+  [data-hermes-theme="mint"],
+  [data-hermes-theme="nance-juice"],
+  [data-hermes-theme="oceans"],
+  [data-hermes-theme="orange-juice"],
+  [data-hermes-theme="snow-water"],
+  [data-hermes-theme="turquoise"],
+  [data-hermes-theme="ultramarine"],
+  [data-hermes-theme="yuzu"]
 ) {
   --minimalist-capabilities-embed-background: #0E0E0E;
 }
