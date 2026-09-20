@@ -20,8 +20,4 @@ scripts/
 PROGRESS.md
 MAINTAINER.md
 
-# Índice y guías locales generadas por GitNexus (no se versionan)
-.gitnexus/
-AGENTS.md
-CLAUDE.md
-.claude/
+.codegraph/
