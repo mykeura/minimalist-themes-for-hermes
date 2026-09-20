@@ -651,6 +651,10 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   filter: brightness(0.95);
 }
 
+#plugin-minimalist-themes > [role="cell"] > span.flex.size-7.shrink-0 {
+  display: none !important;
+}
+
 :root:is(
   [data-hermes-theme="beetroot-juice"],
   [data-hermes-theme="blackberry-juice"],
@@ -1052,54 +1056,92 @@ function installGlobalThemeLock(ctx) {
   })
 }
 
-// Hermes has no custom plugin settings contribution. Keep this compatibility
-// surface strictly inside this plugin's own detail row.
+function profileNames(inventory, active) {
+  const names = new Set(['default', active])
+  for (const route of inventory) {
+    const name = typeof route === 'string' ? route : route?.profile
+    if (typeof name === 'string' && name) names.add(name)
+  }
+  return [...names].sort((a, b) => a === 'default' ? -1 : b === 'default' ? 1 : a.localeCompare(b))
+}
+
 function installProfileThemeSettings(ctx, controller) {
-  const sectionId = `${ID}-profile-settings`
-  let section = null
-  let signature = ''
-  let pending = null
+  const badgesSelector = '[role="cell"] > div.min-w-0.flex-1 > div.flex.flex-wrap'
+  const overlayId = `${ID}-profile-settings-overlay`
+  let row = null
+  let badges = null
+  let mount = null
+  let button = null
+  let modal = null
+  let focusFrame = null
   let disposed = false
   let inventory = []
   let loading = false
+  let escapeListener = null
+  let trigger = null
   const listeners = []
-  const clear = () => {
+
+  const names = () => profileNames(inventory, controller.active())
+  const clearControls = () => {
     for (const [select, listener] of listeners.splice(0)) select.removeEventListener('change', listener)
-    section?.remove()
-    section = null
+  }
+  const close = (restoreFocus = true) => {
+    if (focusFrame !== null) cancelAnimationFrame(focusFrame)
+    focusFrame = null
+    clearControls()
+    if (escapeListener) {
+      window.removeEventListener('keydown', escapeListener)
+      escapeListener = null
+    }
+    modal?.remove()
+    modal = null
+    if (restoreFocus && trigger?.parentNode) trigger.focus()
+    trigger = null
+  }
+  const unmount = () => {
+    close(false)
+    button?.removeEventListener('click', open)
+    mount?.remove()
+    row = null
+    badges = null
+    mount = null
+    button = null
   }
   const render = () => {
-    pending = null
-    if (disposed) return
-    const row = document.getElementById('plugin-minimalist-themes')
-    if (!row) { clear(); signature = ''; return }
-    const names = new Set(['default', controller.active()])
-    for (const route of inventory) {
-        const name = typeof route === 'string' ? route : route.profile
-        if (typeof name === 'string' && name) names.add(name)
-    }
-    const profiles = [...names].sort((a, b) => a === 'default' ? -1 : b === 'default' ? 1 : a.localeCompare(b))
-    const next = JSON.stringify(profiles.map(name => [name, controller.selected(name)]))
-    if (section?.parentNode === row && signature === next) return
-    clear()
-    document.getElementById(sectionId)?.remove()
-    signature = next
-    section = document.createElement('section')
-    section.id = sectionId
-    section.style.cssText = 'margin-top:12px;padding-top:12px;border-top:1px solid var(--ui-stroke-secondary);color:var(--ui-text-primary);'
-    const heading = document.createElement('h4')
-    heading.textContent = 'Profile themes'
-    heading.style.cssText = 'margin:0 0 4px;font-size:13px;font-weight:600;'
+    if (disposed || !modal) return
+    clearControls()
+    const card = document.createElement('div')
+    card.id = `${overlayId}-content`
+    card.setAttribute('role', 'dialog')
+    card.setAttribute('aria-modal', 'true')
+    card.setAttribute('aria-labelledby', `${overlayId}-title`)
+    card.setAttribute('data-slot', 'dialog-content')
+    card.style.cssText = 'position:fixed;left:50%;top:50%;z-index:var(--z-modal);display:flex;max-height:85vh;width:max-content;min-width:min(28rem,92vw);max-width:92vw;transform:translate(-50%,-50%);flex-direction:column;overflow:hidden;border:1px solid var(--stroke-nous);border-radius:var(--radius-xl,12px);background:var(--ui-chat-bubble-background);color:var(--ui-text-primary);box-shadow:var(--shadow-nous);'
+    const header = document.createElement('header')
+    header.style.cssText = 'display:flex;align-items:center;gap:8px;padding:16px;'
+    const title = document.createElement('h2')
+    title.id = `${overlayId}-title`
+    title.textContent = 'Profile themes'
+    title.style.cssText = 'margin:0;font-size:15px;font-weight:600;color:var(--ui-text-primary);'
+    const closeButton = document.createElement('button')
+    closeButton.type = 'button'
+    closeButton.setAttribute('aria-label', 'Close')
+    closeButton.textContent = '×'
+    closeButton.style.cssText = 'margin-left:auto;border:0;border-radius:4px;background:transparent;color:var(--ui-text-tertiary);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;'
+    closeButton.addEventListener('click', () => close())
+    header.append(title, closeButton)
+    const body = document.createElement('div')
+    body.style.cssText = 'display:grid;gap:12px;min-height:0;max-height:calc(85vh - 5rem);overflow-y:auto;padding:16px;'
     const help = document.createElement('p')
     help.textContent = 'Default inherits your current Minimalist theme.'
-    help.style.cssText = 'margin:0 0 10px;font-size:12px;color:var(--ui-text-secondary);'
-    section.append(heading, help)
-    for (const profile of profiles) {
+    help.style.cssText = 'margin:0;font-size:12px;line-height:1.5;color:var(--ui-text-secondary);'
+    body.append(help)
+    for (const profile of names()) {
       const label = document.createElement('label')
-      label.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;font-size:12px;'
+      label.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;color:var(--ui-text-primary);'
       const name = document.createElement('span')
       name.textContent = profile
-      name.style.cssText = 'overflow-wrap:anywhere;min-width:0;'
+      name.style.cssText = 'min-width:0;overflow-wrap:anywhere;'
       const select = document.createElement('select')
       select.setAttribute('aria-label', `Theme for profile ${profile}`)
       select.style.cssText = 'max-width:65%;padding:5px 8px;border:1px solid var(--ui-stroke-secondary);border-radius:6px;background:var(--ui-bg-chrome);color:var(--ui-text-primary);'
@@ -1110,34 +1152,85 @@ function installProfileThemeSettings(ctx, controller) {
         select.append(option)
       }
       select.value = controller.selected(profile)
-      const listener = () => { controller.set(profile, select.value); schedule() }
+      const listener = () => controller.set(profile, select.value)
       select.addEventListener('change', listener)
       listeners.push([select, listener])
       label.append(name, select)
-      section.append(label)
+      body.append(label)
     }
-    row.append(section)
+    card.append(header, body)
+    modal.replaceChildren(card)
   }
-  const schedule = () => {
-    if (!disposed && pending === null) pending = requestAnimationFrame(render)
+  const open = () => {
+    if (disposed || modal || !document.body) return
+    trigger = button
+    modal = document.createElement('div')
+    modal.id = overlayId
+    modal.setAttribute('data-overlay-surface', '')
+    modal.setAttribute('data-slot', 'dialog-overlay')
+    modal.setAttribute('role', 'presentation')
+    modal.style.cssText = 'position:fixed;inset:0;z-index:var(--z-modal-backdrop);display:flex;align-items:center;justify-content:center;background:rgb(0 0 0 / 22%);backdrop-filter:blur(0.125rem);'
+    modal.addEventListener('click', event => { if (event.target === event.currentTarget) close() })
+    escapeListener = event => {
+      if (event.key === 'Escape' && !event.defaultPrevented) {
+        event.preventDefault()
+        close()
+      }
+    }
+    window.addEventListener('keydown', escapeListener)
+    document.body.append(modal)
+    render()
+    focusFrame = requestAnimationFrame(() => {
+      focusFrame = null
+      modal?.querySelector('[data-slot="dialog-content"] button')?.focus()
+    })
+  }
+  const sync = () => {
+    const nextRow = document.getElementById(`plugin-${ID}`)
+    const nextBadges = nextRow?.querySelector?.(badgesSelector) ?? null
+    if (!nextRow || !nextBadges) {
+      unmount()
+      return
+    }
+    if (nextBadges !== badges) {
+      unmount()
+      row = nextRow
+      badges = nextBadges
+      mount = document.createElement('span')
+      mount.className = 'inline-flex shrink-0 items-center'
+      mount.setAttribute('data-slot', 'profile-theme-settings')
+      button = document.createElement('button')
+      button.type = 'button'
+      button.setAttribute('aria-label', 'Profile theme settings')
+      button.className = 'inline-flex shrink-0 items-center gap-1 rounded-[4px] border border-(--ui-stroke-secondary) bg-(--ui-bg-chrome) px-2 py-0.5 text-[0.6875rem] leading-4 text-(--ui-text-primary)'
+      button.style.cssText = 'cursor:pointer;'
+      const icon = document.createElement('i')
+      icon.className = 'codicon codicon-settings-gear'
+      icon.setAttribute('aria-hidden', 'true')
+      const label = document.createElement('span')
+      label.textContent = 'Settings'
+      button.append(icon, label)
+      button.addEventListener('click', open)
+      mount.append(button)
+      badges.append(mount)
+    }
   }
   const refresh = () => {
-    schedule()
+    sync()
     if (loading || disposed || typeof host.profileRoutes !== 'function') return
     loading = true
     Promise.resolve().then(() => host.profileRoutes()).then(routes => {
-      if (!disposed && Array.isArray(routes)) inventory = routes.filter(route => route && typeof route === 'object')
-    }).catch(() => {}).finally(() => { loading = false; schedule() })
+      if (!disposed && Array.isArray(routes)) inventory = routes.filter(route => typeof route === 'string' || (route && typeof route === 'object'))
+    }).catch(() => {}).finally(() => { loading = false; if (modal) render() })
   }
-  const observer = new MutationObserver(schedule)
+  const observer = new MutationObserver(sync)
   observer.observe(document.documentElement, { childList: true, subtree: true })
-  render()
+  sync()
   refresh()
   ctx.onDispose(() => {
     disposed = true
     observer.disconnect()
-    if (pending !== null) cancelAnimationFrame(pending)
-    clear()
+    unmount()
   })
   return refresh
 }
