@@ -1116,9 +1116,9 @@ function installProfileThemeSettings(ctx, controller) {
     card.setAttribute('aria-modal', 'true')
     card.setAttribute('aria-labelledby', `${overlayId}-title`)
     card.setAttribute('data-slot', 'dialog-content')
-    card.style.cssText = 'position:fixed;left:50%;top:50%;z-index:var(--z-modal);display:flex;max-height:85vh;width:max-content;min-width:min(28rem,92vw);max-width:92vw;transform:translate(-50%,-50%);flex-direction:column;overflow:hidden;border:1px solid var(--stroke-nous);border-radius:var(--radius-xl,12px);background:var(--ui-chat-bubble-background);color:var(--ui-text-primary);box-shadow:var(--shadow-nous);'
+    card.style.cssText = 'position:fixed;left:50%;top:50%;z-index:var(--z-modal);display:flex;max-height:85vh;width:max-content;min-width:min(28rem,92vw);max-width:92vw;transform:translate(-50%,-50%);flex-direction:column;overflow:hidden;border:1px solid var(--stroke-nous);border-radius:var(--radius-xl,12px);background:var(--theme-background-seed,var(--ui-bg-chrome));color:var(--ui-text-primary);box-shadow:var(--shadow-nous);'
     const header = document.createElement('header')
-    header.style.cssText = 'display:flex;align-items:center;gap:8px;padding:16px;'
+    header.style.cssText = 'display:flex;align-items:center;gap:8px;padding:16px 16px 0;'
     const title = document.createElement('h2')
     title.id = `${overlayId}-title`
     title.textContent = 'Profile themes'
@@ -1131,7 +1131,7 @@ function installProfileThemeSettings(ctx, controller) {
     closeButton.addEventListener('click', () => close())
     header.append(title, closeButton)
     const body = document.createElement('div')
-    body.style.cssText = 'display:grid;gap:12px;min-height:0;max-height:calc(85vh - 5rem);overflow-y:auto;padding:16px;'
+    body.style.cssText = 'display:grid;gap:12px;min-height:0;max-height:calc(85vh - 5rem);overflow-y:auto;padding:8px 16px 16px;'
     const help = document.createElement('p')
     help.textContent = 'Default inherits your current Minimalist theme.'
     help.style.cssText = 'margin:0;font-size:12px;line-height:1.5;color:var(--ui-text-secondary);'
@@ -1144,7 +1144,7 @@ function installProfileThemeSettings(ctx, controller) {
       name.style.cssText = 'min-width:0;overflow-wrap:anywhere;'
       const select = document.createElement('select')
       select.setAttribute('aria-label', `Theme for profile ${profile}`)
-      select.style.cssText = 'max-width:65%;padding:5px 8px;border:1px solid var(--ui-stroke-secondary);border-radius:6px;background:var(--ui-bg-chrome);color:var(--ui-text-primary);'
+      select.style.cssText = 'max-width:65%;padding:5px 8px;border:1px solid var(--ui-stroke-secondary);border-radius:6px;background:var(--ui-base);color:var(--theme-background-seed,var(--ui-bg-chrome));color-scheme:dark;'
       for (const theme of [{ name: '', label: 'Default' }, ...THEMES]) {
         const option = document.createElement('option')
         option.value = theme.name
