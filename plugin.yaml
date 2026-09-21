@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
+
+name: minimalist-themes
+label: Minimalist Themes
+version: 1.2.5
+manifest_version: 2
+api_version: 1
+description: "Minimalist Themes by @mykeura — 18 warm, readable palettes for a cleaner Hermes Desktop."
+author: Miguel Euraque (@mykeura)
+license: MIT
+homepage: https://github.com/mykeura/minimalist-themes-for-hermes
+tags: [desktop, themes, appearance]
+requires_hermes: ">=0.21.3"

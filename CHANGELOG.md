@@ -2,6 +2,16 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.2.5] — 2026-09-21
+
+### Prepared for release review
+
+- Prepared the versioned manifest v2 and unified the Desktop entrypoint at `desktop/plugin.js`.
+- Versioned the plugin descriptor and aligned installation metadata with `mykeura/minimalist-themes-for-hermes`.
+- No visual changes; the existing palettes and Desktop behavior remain unchanged.
+
+This documents preparation only; publication, tag, and final public SHA remain pending.
+
 ## [1.2.4] — 2026-09-20
 
 ### Fixed

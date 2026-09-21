@@ -1,32 +1,23 @@
 # Minimalist Themes for Hermes Desktop
 
-Give Hermes Desktop a warmer, calmer look with 18 carefully balanced light palettes.
+Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
-**Current version:** 1.2.4
+**Version 1.2.5 — catalog preparation; not yet available in the curated catalog.**
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 
-## What it adds
+## Features
 
-- **18 warm palettes:** Beetroot Juice, Blackberry Juice, Coffee With Milk, Cornmeal Porridge, Diana Yin, Grape Juice, Green Tea, Hibiscus Tea, Horchata, Mango, Mint, Nance Juice, Oceans, Orange Juice, Snow Water, Turquoise, Ultramarine, and Yuzu.
-- **Profile-aware themes:** keep one global Minimalist theme, or give each Hermes profile its own palette.
-- **Default inheritance:** each profile starts at **Default**, which follows your current global Minimalist theme. Pick a palette to save a profile-specific override; switch back to **Default** to inherit again.
-- **A coherent workspace:** the selected palette carries through supported Desktop surfaces, including the Kanban background.
-- **Desktop-only scope:** the plugin changes Hermes Desktop appearance without changing the CLI or TUI.
-
-## Choose a theme for each profile
-
-Open **Capabilities → Plugins → Minimalist Themes**, then choose **Settings**. Select a palette for each profile and Hermes will remember those choices as you switch between profiles.
+- 18 warm palettes, from Beetroot Juice to Yuzu.
+- **Profile themes:** choose a palette per Hermes profile.
+- **Default:** inherits the global theme unless overridden.
+- **Kanban:** uses the selected palette.
 
 ![Per-profile theme colors](demo/demo-1.gif)
 
-The **Default** option is the easiest way to keep profiles synchronized with your global theme, while individual palettes let you recognize each workspace at a glance.
-
 ![Choosing a theme for each profile](demo/demo-2.gif)
 
-## Themes
-
-The following screenshots show the eighteen palettes available after installation.
+## Theme gallery
 
 |   |   |
 | --- | --- |
@@ -40,42 +31,26 @@ The following screenshots show the eighteen palettes available after installatio
 | ![Snow Water](images/snow-water.png)<br>Snow Water | ![Turquoise](images/turquoise.png)<br>Turquoise |
 | ![Ultramarine](images/ultramarine.png)<br>Ultramarine | ![Yuzu](images/yuzu.png)<br>Yuzu |
 
-## Installation
-
-### Linux and macOS
-
-Clone the repository, then copy the Desktop plugin into Hermes' plugin directory:
+## Install after this branch is published
 
 ```bash
-git clone https://github.com/mykeura/minimalist-themes-for-hermes /tmp/minimalist-themes-for-hermes
-HERMES_ROOT="${HERMES_HOME:-$HOME/.hermes}"
-mkdir -p "$HERMES_ROOT/desktop-plugins/minimalist-themes"
-cp /tmp/minimalist-themes-for-hermes/desktop-plugins/minimalist-themes/plugin.js \
-   "$HERMES_ROOT/desktop-plugins/minimalist-themes/plugin.js"
+hermes plugins install mykeura/minimalist-themes-for-hermes
+hermes plugins enable minimalist-themes
 ```
 
-The command uses `$HOME/.hermes` by default and respects `HERMES_HOME` when it is set.
+After catalog acceptance, `hermes plugins install minimalist-themes` will work; it is not available by name yet.
 
-### Windows
+## Update or uninstall
 
-Open **Settings → Plugins** in Hermes Desktop and use the option that reveals the Desktop plugin directory. Create a `minimalist-themes` folder directly inside that revealed directory, then copy `plugin.js` from this repository into it. The directory revealed by Hermes is authoritative; with a custom `HERMES_HOME`, use `%HERMES_HOME%\desktop-plugins\minimalist-themes` as an alternative location.
+```bash
+hermes plugins update minimalist-themes
+hermes plugins uninstall minimalist-themes
+```
 
-Hermes normally detects the plugin automatically. If it does not appear, open the Command Palette and run **Reload desktop plugins**, then choose a palette from **Settings → Appearance**.
+`uninstall` is the CLI alias for `remove`.
 
-## Updating
+## Support and license
 
-Pull the latest repository version and copy `desktop-plugins/minimalist-themes/plugin.js` over the installed file using the same location above. Run **Reload desktop plugins** from the Command Palette if Hermes does not reload it automatically.
-
-## Uninstalling
-
-Remove the installed `minimalist-themes` folder from Hermes' Desktop plugin directory, run **Reload desktop plugins**, and select another appearance.
-
-## A small way to support the project
-
-If you are considering the Nous Portal Personal plan, you can use [my Nous Portal referral link](https://portal.nousresearch.com/r/mykeura). It takes **$15 off your first month** and gives me a **$10 referral credit** that helps cover the API usage behind my ongoing work on these themes. It is entirely optional, but it is a simple way for both of us to benefit.
-
-The offer is for new customers starting a new Personal subscription. It applies to the first invoice, and each payment card can be used for only one referral; if the card has already backed another referral, the discount is reversed and no referral reward is paid.
-
-## License
+[My Nous Portal referral link](https://portal.nousresearch.com/r/mykeura) gives new Personal subscribers **$15 off** and gives me a **$10 referral credit**. Optional, but appreciated.
 
 MIT — see [LICENSE](LICENSE).
