@@ -24,3 +24,13 @@ MAINTAINER.md
 Releases.md
 
 .codegraph/
+
+# Cachés y entornos Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Sistema y editores
+.DS_Store
