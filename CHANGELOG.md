@@ -2,6 +2,16 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.2.6] — 2026-09-21
+
+### Fixed
+
+- Hid the decorative Agent-half switch behind the app's dash while the Desktop half runs (manifest-only plugin, nothing to enable); restored on dispose.
+- Matched the injected Settings button metrics and height to the app badge pills.
+- Strengthened the Agent+Desktop kind badge border while mounted; restored on dispose.
+
+Source commits: `6956246`, `5f9326b`, `35f5b6b`, `70d2b31` (plus revert `727acb3` of the pinned-pill move experiment).
+
 ## [1.2.5] — 2026-09-21
 
 ### Prepared for release review
