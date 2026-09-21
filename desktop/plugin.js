@@ -1090,6 +1090,9 @@ function profileNames(inventory, active) {
 
 function installProfileThemeSettings(ctx, controller) {
   const badgesSelector = '[role="cell"] > div.min-w-0.flex-1 > div.flex.flex-wrap'
+  const rowCellsSelector = ':scope > [role="cell"]'
+  const agentCellAttr = 'data-minimalist-agent-cell'
+  const agentDashAttr = 'data-minimalist-agent-dash'
   const overlayId = `${ID}-profile-settings-overlay`
   let row = null
   let badges = null
@@ -1125,10 +1128,41 @@ function installProfileThemeSettings(ctx, controller) {
     close(false)
     button?.removeEventListener('click', open)
     mount?.remove()
+    restoreAgentToggle()
     row = null
     badges = null
     mount = null
     button = null
+  }
+  // The unified package row carries an Agent-half switch that is a no-op for
+  // this manifest-only plugin (no Python half exists to enable or disable),
+  // so it only misleads. Hide it behind the same dash the app renders for a
+  // missing half. The switch node itself is kept (hidden, not removed) so
+  // React reconciliation never loses its reference.
+  const hideAgentToggle = scope => {
+    const cells = scope?.querySelectorAll(rowCellsSelector) ?? []
+    const agentCell = cells[2] ?? null
+    if (!agentCell || agentCell.hasAttribute(agentCellAttr)) return
+    const toggle = agentCell.querySelector('button[role="switch"]')
+    if (!toggle) return
+    agentCell.setAttribute(agentCellAttr, 'true')
+    toggle.style.display = 'none'
+    const dash = document.createElement('span')
+    dash.setAttribute(agentDashAttr, 'true')
+    dash.setAttribute('aria-hidden', 'true')
+    dash.className = 'w-9 text-center'
+    dash.style.cssText = 'color:var(--ui-text-quaternary);'
+    dash.textContent = '—'
+    toggle.before(dash)
+  }
+  const restoreAgentToggle = () => {
+    document.querySelectorAll(`[${agentDashAttr}]`).forEach(node => node.remove())
+    document.querySelectorAll(`[${agentCellAttr}]`).forEach(cell => {
+      cell.querySelectorAll('button[role="switch"]').forEach(toggle => {
+        toggle.style.display = ''
+      })
+      cell.removeAttribute(agentCellAttr)
+    })
   }
   const render = () => {
     if (disposed || !modal) return
@@ -1237,6 +1271,7 @@ function installProfileThemeSettings(ctx, controller) {
       mount.append(button)
       badges.append(mount)
     }
+    hideAgentToggle(nextRow)
   }
   const refresh = () => {
     sync()
