@@ -4,11 +4,21 @@ Minimalist Themes provides eighteen warm, light color palettes for Hermes Deskto
 
 **Current version:** 1.2.4 — theme-matched Kanban root background with compact modal spacing.
 
-Open **Capabilities → Plugins → Minimalist Themes** to choose a theme for each profile. Each selector offers **Default** plus all eighteen palettes. Default inherits your current global Minimalist theme; an explicit selection is saved and applied whenever you enter that profile. Choosing a Minimalist theme in Appearance updates the global choice. Choosing a non-Minimalist theme releases the global lock.
+Open **Capabilities → Plugins → Minimalist Themes** to choose a different theme for each profile. Each selector offers **Default** plus all eighteen palettes. **Default** inherits your current global Minimalist theme; selecting a palette creates a saved profile override that is reapplied whenever you enter that profile. Choosing a Minimalist theme in Appearance updates the global choice. Choosing a non-Minimalist theme releases the global lock.
 
 Theme restoration starts immediately after registration. Hermes loads disk plugins asynchronously, so the plugin cannot prevent a brief appearance of the initial theme before its loader runs. The profile controls use a narrowly scoped compatibility integration with the plugin detail row because Hermes does not currently expose custom plugin settings.
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
+
+## Demo
+
+Thanks to community feedback, the plugin now lets each profile use a different theme. In **Capabilities → Plugins → Minimalist Themes**, choose a theme for each profile. Every profile starts with **Default**, which inherits the global Minimalist theme; selecting a palette saves a profile override and reapplies it whenever that profile opens.
+
+![Per-profile theme colors](demo/demo-1.gif)
+
+The profile settings provide a direct way to customize each profile in Hermes Desktop.
+
+![Choosing a theme for each profile](demo/demo-2.gif)
 
 ## Installation
 

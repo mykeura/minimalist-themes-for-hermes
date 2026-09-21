@@ -20,4 +20,7 @@ scripts/
 PROGRESS.md
 MAINTAINER.md
 
+# Notas locales de releases (no se versionan)
+Releases.md
+
 .codegraph/
