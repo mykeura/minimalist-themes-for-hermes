@@ -1129,10 +1129,29 @@ function installProfileThemeSettings(ctx, controller) {
     button?.removeEventListener('click', open)
     mount?.remove()
     restoreAgentToggle()
+    restoreKindBadge()
     row = null
     badges = null
     mount = null
     button = null
+  }
+  // The app paints the Agent+Desktop kind badge with its tertiary stroke,
+  // which is nearly invisible on dark themes. Nudge it to the secondary
+  // stroke (same as our Settings button) while mounted; restored on dispose.
+  const kindBadgeAttr = 'data-minimalist-kind-badge'
+  const strengthenKindBadge = scope => {
+    const target = [...(scope?.querySelectorAll(badgesSelector) ?? [])]
+      .flatMap(container => [...container.children])
+      .find(child => !child.hasAttribute('data-slot') && /agent \+ desktop/i.test(child.textContent || ''))
+    if (!target || target.hasAttribute(kindBadgeAttr)) return
+    target.setAttribute(kindBadgeAttr, 'true')
+    target.style.borderColor = 'var(--ui-stroke-secondary)'
+  }
+  const restoreKindBadge = () => {
+    document.querySelectorAll(`[${kindBadgeAttr}]`).forEach(node => {
+      node.style.borderColor = ''
+      node.removeAttribute(kindBadgeAttr)
+    })
   }
   // The unified package row carries an Agent-half switch that is a no-op for
   // this manifest-only plugin (no Python half exists to enable or disable),
@@ -1273,6 +1292,7 @@ function installProfileThemeSettings(ctx, controller) {
       badges.append(mount)
     }
     hideAgentToggle(nextRow)
+    strengthenKindBadge(nextRow)
   }
   const refresh = () => {
     sync()
