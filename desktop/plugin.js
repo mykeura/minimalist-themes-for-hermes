@@ -1164,6 +1164,18 @@ function installProfileThemeSettings(ctx, controller) {
       cell.removeAttribute(agentCellAttr)
     })
   }
+  // The app renders its own `pinned @` pill among the badges. Keep it after
+  // our Settings mount so the order matches sibling plugins: name, badges,
+  // Settings, pinned.
+  const keepPinnedAfterMount = () => {
+    if (!mount || !badges || mount.parentNode !== badges) return
+    const pinned = [...badges.children].find(
+      child => child !== mount && /^pinned @/i.test((child.textContent || '').trim())
+    )
+    if (pinned && pinned.previousElementSibling !== mount) {
+      mount.after(pinned)
+    }
+  }
   const render = () => {
     if (disposed || !modal) return
     clearControls()
@@ -1272,6 +1284,7 @@ function installProfileThemeSettings(ctx, controller) {
       badges.append(mount)
     }
     hideAgentToggle(nextRow)
+    keepPinnedAfterMount()
   }
   const refresh = () => {
     sync()
