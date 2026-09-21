@@ -1271,7 +1271,7 @@ function installProfileThemeSettings(ctx, controller) {
       button = document.createElement('button')
       button.type = 'button'
       button.setAttribute('aria-label', 'Profile theme settings')
-      button.className = 'inline-flex shrink-0 items-center gap-1 rounded-[4px] border border-(--ui-stroke-secondary) bg-(--ui-bg-chrome) px-2 py-0.5 text-[0.6875rem] leading-4 text-(--ui-text-primary)'
+      button.className = 'inline-flex shrink-0 items-center gap-1 rounded-[3px] border border-(--ui-stroke-secondary) bg-(--ui-bg-chrome) px-1.5 py-0.5 text-[0.65rem] font-medium leading-none text-(--ui-text-primary)'
       button.style.cssText = 'cursor:pointer;'
       const icon = document.createElement('i')
       icon.className = 'codicon codicon-settings-gear'
