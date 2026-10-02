@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Miguel Euraque
-import { THEMES_AREA, host, requestTheme } from '@hermes/plugin-sdk'
+import { THEMES_AREA } from '@hermes/plugin-sdk'
 
 const ID = 'minimalist-themes'
 
@@ -601,8 +601,6 @@ const THEMES = [
   },
 ]
 
-const THEME_NAMES = new Set(THEMES.map(t => t.name))
-const GLOBAL_THEME_KEY = 'global-theme'
 const PROFILE_RAIL_STYLE_ID = `${ID}-profile-rail`
 const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimalist-profile-rail-glyph: #303336; }
 :root[data-hermes-theme="blackberry-juice"] { --minimalist-profile-rail-glyph: #2C2F31; }
@@ -649,10 +647,6 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   color: var(--minimalist-profile-rail-glyph) !important;
   opacity: 0.85 !important;
   filter: brightness(0.95);
-}
-
-#plugin-minimalist-themes > [role="cell"] > span.flex.size-7.shrink-0 {
-  display: none !important;
 }
 
 :root:is(
@@ -1005,257 +999,40 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   background-color: color-mix(in srgb, var(--ui-text-primary) 18%, transparent) !important;
 }`
 
-function installGlobalThemeLock(ctx) {
-  if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return
-  const root = document.documentElement
-  const stored = ctx.storage.get('profile-themes', {})
-  const overrides = Object.create(null)
-  if (stored && typeof stored === 'object' && !Array.isArray(stored)) {
-    for (const [profile, theme] of Object.entries(stored)) {
-      if (THEME_NAMES.has(theme)) overrides[profile] = theme
-    }
-  }
-  let globalTheme = ctx.storage.get(GLOBAL_THEME_KEY, null)
-  if (!THEME_NAMES.has(globalTheme)) globalTheme = null
-  let activeProfile = 'default'
-  let initialized = false
-  let applying = false
-  let appliedTheme = null
-  let switching = false
-  let frame = null
-  let refresh = () => {}
-  const target = () => overrides[activeProfile] || globalTheme
-  const apply = () => {
-    const theme = target()
-    if (!theme) return
-    appliedTheme = theme
-    applying = true
-    try { requestTheme(theme) } finally { applying = false }
-  }
-  const observer = new MutationObserver(() => {
-    if (applying) return
-    if (switching) {
-      if (target() && root.dataset.hermesTheme !== target()) apply()
-      return
-    }
-    const theme = root.dataset.hermesTheme
-    if (theme === appliedTheme) return
-    appliedTheme = null
-    globalTheme = THEME_NAMES.has(theme) ? theme : null
-    if (globalTheme) ctx.storage.set(GLOBAL_THEME_KEY, globalTheme)
-    else ctx.storage.remove(GLOBAL_THEME_KEY)
-  })
-  observer.observe(root, { attributes: true, attributeFilter: ['data-hermes-theme'] })
-  const unsubscribe = host.state.profile.subscribe(profile => {
-    activeProfile = typeof profile === 'string' && profile ? profile : 'default'
-    if (!initialized) {
-      initialized = true
-      const visible = root.dataset.hermesTheme
-      if (!globalTheme && !overrides[activeProfile] && THEME_NAMES.has(visible)) {
-        globalTheme = visible
-        ctx.storage.set(GLOBAL_THEME_KEY, globalTheme)
+// One-time bridge from the removed plugin selector to Desktop's native
+// per-profile preferences. Legacy values remain available for rollback.
+function migrateProfileThemes(ctx) {
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') return
+  if (ctx.storage.get('native-themes-migrated-v1', false)) return
+  const profilesKey = 'hermes-desktop-profile-themes-v1'
+  const globalKey = 'hermes-desktop-theme-v2'
+  const validTheme = name => THEMES.some(theme => theme.name === name)
+  const isRecord = value => value && typeof value === 'object' && !Array.isArray(value)
+  try {
+    const stored = ctx.storage.get('profile-themes', {})
+    const legacy = isRecord(stored) ? stored : {}
+    const raw = localStorage.getItem(profilesKey)
+    const native = raw === null ? {} : JSON.parse(raw)
+    if (!isRecord(native)) return // Do not replace malformed native storage.
+    const next = { ...native }
+    let changed = false
+    for (const [profile, theme] of Object.entries(legacy)) {
+      if (profile === 'default' || !profile || !validTheme(theme)) continue
+      if (!Object.hasOwn(next, profile)) {
+        Object.defineProperty(next, profile, { value: theme, enumerable: true, configurable: true, writable: true })
+        changed = true
       }
     }
-    switching = true
-    if (frame !== null) cancelAnimationFrame(frame)
-    apply()
-    frame = requestAnimationFrame(() => { frame = null; switching = false })
-    refresh()
-  })
-  refresh = installProfileThemeSettings(ctx, {
-    active: () => activeProfile,
-    selected: profile => overrides[profile] || '',
-    set(profile, theme) {
-      if (THEME_NAMES.has(theme)) overrides[profile] = theme
-      else delete overrides[profile]
-      ctx.storage.set('profile-themes', { ...overrides })
-      if (profile === activeProfile) apply()
-    }
-  })
-  ctx.onDispose(() => {
-    if (frame !== null) cancelAnimationFrame(frame)
-    observer.disconnect()
-    unsubscribe()
-  })
-}
-
-function profileNames(inventory, active) {
-  const names = new Set(['default', active])
-  for (const route of inventory) {
-    const name = typeof route === 'string' ? route : route?.profile
-    if (typeof name === 'string' && name) names.add(name)
+    if (changed) localStorage.setItem(profilesKey, JSON.stringify(next))
+    const global = validTheme(legacy.default) ? legacy.default : ctx.storage.get('global-theme', null)
+    const globalChanged = localStorage.getItem(globalKey) === null && validTheme(global)
+    if (globalChanged) localStorage.setItem(globalKey, global)
+    ctx.storage.set('native-themes-migrated-v1', true)
+    // setItem does not notify this renderer; ask the native provider to reread.
+    if (changed || globalChanged) window.dispatchEvent(new StorageEvent('storage', { key: changed ? profilesKey : globalKey }))
+  } catch (error) {
+    console.warn('[minimalist-themes] Native theme migration deferred:', error)
   }
-  return [...names].sort((a, b) => a === 'default' ? -1 : b === 'default' ? 1 : a.localeCompare(b))
-}
-
-function installProfileThemeSettings(ctx, controller) {
-  const badgesSelector = '[role="cell"] > div.min-w-0.flex-1 > div.flex.flex-wrap'
-  const overlayId = `${ID}-profile-settings-overlay`
-  let row = null
-  let badges = null
-  let mount = null
-  let button = null
-  let modal = null
-  let focusFrame = null
-  let disposed = false
-  let inventory = []
-  let loading = false
-  let escapeListener = null
-  let trigger = null
-  const listeners = []
-
-  const names = () => profileNames(inventory, controller.active())
-  const clearControls = () => {
-    for (const [select, listener] of listeners.splice(0)) select.removeEventListener('change', listener)
-  }
-  const close = (restoreFocus = true) => {
-    if (focusFrame !== null) cancelAnimationFrame(focusFrame)
-    focusFrame = null
-    clearControls()
-    if (escapeListener) {
-      window.removeEventListener('keydown', escapeListener)
-      escapeListener = null
-    }
-    modal?.remove()
-    modal = null
-    if (restoreFocus && trigger?.parentNode) trigger.focus()
-    trigger = null
-  }
-  const unmount = () => {
-    close(false)
-    button?.removeEventListener('click', open)
-    mount?.remove()
-    row = null
-    badges = null
-    mount = null
-    button = null
-  }
-  const render = () => {
-    if (disposed || !modal) return
-    clearControls()
-    const card = document.createElement('div')
-    card.id = `${overlayId}-content`
-    card.setAttribute('role', 'dialog')
-    card.setAttribute('aria-modal', 'true')
-    card.setAttribute('aria-labelledby', `${overlayId}-title`)
-    card.setAttribute('data-slot', 'dialog-content')
-    card.style.cssText = 'position:fixed;left:50%;top:50%;z-index:var(--z-modal);display:flex;max-height:85vh;width:max-content;min-width:min(28rem,92vw);max-width:92vw;transform:translate(-50%,-50%);flex-direction:column;overflow:hidden;border:1px solid var(--stroke-nous);border-radius:var(--radius-xl,12px);background:var(--theme-background-seed,var(--ui-bg-chrome));color:var(--ui-text-primary);box-shadow:var(--shadow-nous);'
-    const header = document.createElement('header')
-    header.style.cssText = 'display:flex;align-items:center;gap:8px;padding:16px 16px 0;'
-    const title = document.createElement('h2')
-    title.id = `${overlayId}-title`
-    title.textContent = 'Profile themes'
-    title.style.cssText = 'margin:0;font-size:15px;font-weight:600;color:var(--ui-text-primary);'
-    const closeButton = document.createElement('button')
-    closeButton.type = 'button'
-    closeButton.setAttribute('aria-label', 'Close')
-    closeButton.textContent = '×'
-    closeButton.style.cssText = 'margin-left:auto;border:0;border-radius:4px;background:transparent;color:var(--ui-text-tertiary);cursor:pointer;font-size:18px;line-height:1;padding:2px 6px;'
-    closeButton.addEventListener('click', () => close())
-    header.append(title, closeButton)
-    const body = document.createElement('div')
-    body.style.cssText = 'display:grid;gap:12px;min-height:0;max-height:calc(85vh - 5rem);overflow-y:auto;padding:8px 16px 16px;'
-    const help = document.createElement('p')
-    help.textContent = 'Default inherits your current Minimalist theme.'
-    help.style.cssText = 'margin:0;font-size:12px;line-height:1.5;color:var(--ui-text-secondary);'
-    body.append(help)
-    for (const profile of names()) {
-      const label = document.createElement('label')
-      label.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;color:var(--ui-text-primary);'
-      const name = document.createElement('span')
-      name.textContent = profile
-      name.style.cssText = 'min-width:0;overflow-wrap:anywhere;'
-      const select = document.createElement('select')
-      select.setAttribute('aria-label', `Theme for profile ${profile}`)
-      select.style.cssText = 'max-width:65%;padding:5px 8px;border:1px solid var(--ui-stroke-secondary);border-radius:6px;background:var(--ui-base);color:var(--theme-background-seed,var(--ui-bg-chrome));color-scheme:dark;'
-      for (const theme of [{ name: '', label: 'Default' }, ...THEMES]) {
-        const option = document.createElement('option')
-        option.value = theme.name
-        option.textContent = theme.label
-        select.append(option)
-      }
-      select.value = controller.selected(profile)
-      const listener = () => controller.set(profile, select.value)
-      select.addEventListener('change', listener)
-      listeners.push([select, listener])
-      label.append(name, select)
-      body.append(label)
-    }
-    card.append(header, body)
-    modal.replaceChildren(card)
-  }
-  const open = () => {
-    if (disposed || modal || !document.body) return
-    trigger = button
-    modal = document.createElement('div')
-    modal.id = overlayId
-    modal.setAttribute('data-overlay-surface', '')
-    modal.setAttribute('data-slot', 'dialog-overlay')
-    modal.setAttribute('role', 'presentation')
-    modal.style.cssText = 'position:fixed;inset:0;z-index:var(--z-modal-backdrop);display:flex;align-items:center;justify-content:center;background:rgb(0 0 0 / 22%);backdrop-filter:blur(0.125rem);'
-    modal.addEventListener('click', event => { if (event.target === event.currentTarget) close() })
-    escapeListener = event => {
-      if (event.key === 'Escape' && !event.defaultPrevented) {
-        event.preventDefault()
-        close()
-      }
-    }
-    window.addEventListener('keydown', escapeListener)
-    document.body.append(modal)
-    render()
-    focusFrame = requestAnimationFrame(() => {
-      focusFrame = null
-      modal?.querySelector('[data-slot="dialog-content"] button')?.focus()
-    })
-  }
-  const sync = () => {
-    const nextRow = document.getElementById(`plugin-${ID}`)
-    const nextBadges = nextRow?.querySelector?.(badgesSelector) ?? null
-    if (!nextRow || !nextBadges) {
-      unmount()
-      return
-    }
-    if (nextBadges !== badges) {
-      unmount()
-      row = nextRow
-      badges = nextBadges
-      mount = document.createElement('span')
-      mount.className = 'inline-flex shrink-0 items-center'
-      mount.setAttribute('data-slot', 'profile-theme-settings')
-      button = document.createElement('button')
-      button.type = 'button'
-      button.setAttribute('aria-label', 'Profile theme settings')
-      button.className = 'inline-flex shrink-0 items-center gap-1 rounded-[4px] border border-(--ui-stroke-secondary) bg-(--ui-bg-chrome) px-2 py-0.5 text-[0.6875rem] leading-4 text-(--ui-text-primary)'
-      button.style.cssText = 'cursor:pointer;'
-      const icon = document.createElement('i')
-      icon.className = 'codicon codicon-settings-gear'
-      icon.setAttribute('aria-hidden', 'true')
-      const label = document.createElement('span')
-      label.textContent = 'Settings'
-      button.append(icon, label)
-      button.addEventListener('click', open)
-      mount.append(button)
-      badges.append(mount)
-    }
-  }
-  const refresh = () => {
-    sync()
-    if (loading || disposed || typeof host.profileRoutes !== 'function') return
-    loading = true
-    Promise.resolve().then(() => host.profileRoutes()).then(routes => {
-      if (!disposed && Array.isArray(routes)) inventory = routes.filter(route => typeof route === 'string' || (route && typeof route === 'object'))
-    }).catch(() => {}).finally(() => { loading = false; if (modal) render() })
-  }
-  const observer = new MutationObserver(sync)
-  observer.observe(document.documentElement, { childList: true, subtree: true })
-  sync()
-  refresh()
-  ctx.onDispose(() => {
-    disposed = true
-    observer.disconnect()
-    unmount()
-  })
-  return refresh
 }
 
 function installProfileRailStyle(ctx) {
@@ -1271,14 +1048,14 @@ function installProfileRailStyle(ctx) {
 export default {
   id: ID,
   name: 'Minimalist Themes',
-  version: '1.2.5',
-  description: 'Minimalist Themes by @mykeura — 18 warm, readable palettes for a cleaner Hermes Desktop.',
+  version: '1.3.0',
+  description: '18 warm, readable palettes for Hermes Desktop.',
   register(ctx) {
     for (const t of THEMES) {
       const theme = { ...t, colors: { ...t.colors }, darkColors: { ...t.colors } }
       ctx.register({ id: t.name, area: THEMES_AREA, data: theme })
     }
     installProfileRailStyle(ctx)
-    installGlobalThemeLock(ctx)
+    migrateProfileThemes(ctx)
   }
 }

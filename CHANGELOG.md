@@ -2,6 +2,28 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.3.0] — Unreleased
+
+### Added
+
+- Packaged the `minimalist-themes:profile-themes` Agent skill for applying and verifying native Desktop theme assignments.
+- Added an Agent entrypoint that registers the read-only skill without tools, hooks, or automatic profile configuration changes.
+- Added offline regression tests for both Desktop entrypoints and the Agent skill.
+
+### Changed
+
+- Delegate ongoing per-profile appearance persistence to Hermes Desktop instead of maintaining a competing plugin theme lock.
+- Import legacy plugin assignments once into missing native entries, preserving existing native choices and retaining legacy values for rollback.
+- Align both Desktop entrypoints and version metadata at 1.3.0.
+- Refresh the README for the agent workflow and add GitHub Sponsors alongside the optional Nous Portal referral.
+
+### Removed
+
+- The custom per-profile theme selectors, modal, and injected Settings button.
+- Plugin-row overrides that hid the information icon and Agent switch or restyled the kind badge.
+- README demos and instructions for the removed custom selector.
+- Promotional project/author prefix from the plugin panel description; keep only a neutral description of its functionality.
+
 ## [1.2.6] — 2026-09-21
 
 ### Fixed
