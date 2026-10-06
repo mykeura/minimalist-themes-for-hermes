@@ -2,7 +2,7 @@
 
 Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
-**Version 1.3.0 — development branch; not yet released.**
+**Version 1.3.0**
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 

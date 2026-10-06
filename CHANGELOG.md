@@ -2,7 +2,7 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
-## [1.3.0] — Unreleased
+## [1.3.0] — 2026-10-06
 
 ### Changed
 
