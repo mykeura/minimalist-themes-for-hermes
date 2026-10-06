@@ -16,6 +16,7 @@ All notable, versioned changes to Minimalist Themes for Hermes Desktop are docum
 - Legacy migration logic for removed custom profile selectors.
 - Standalone desktop-plugins copy (now unified under `desktop/plugin.js`).
 - README sections documenting the removed agent workflow and custom selector.
+- JavaScript test suite from version control; tests are maintainer-local development checks, not part of the installed plugin.
 
 ## [1.2.6] — 2026-09-21
 

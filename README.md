@@ -36,7 +36,7 @@ hermes plugins install mykeura/minimalist-themes-for-hermes --no-enable
 hermes plugins enable minimalist-themes
 ```
 
-Enable the Desktop half in Hermes' plugin controls if it is not already enabled, then choose a palette in the native theme picker. Use **Reload desktop plugins** from the command palette if Desktop still shows an older version.
+Enable the plugin in Hermes' plugin controls if it is not already enabled, then choose a palette in the native theme picker. Use **Reload desktop plugins** from the command palette if Desktop still shows an older version.
 
 ## Update or uninstall
 
@@ -53,12 +53,11 @@ The Desktop SDK loads the JavaScript entrypoint directly; no build step is requi
 
 ```bash
 node --check desktop/plugin.js
-node --test tests/plugin.test.mjs
 hermes plugins validate .
 hermes plugins doctor . --ci
 ```
 
-The JavaScript tests check palette registration and absence of custom UI controls. Automated checks do not replace verifying the native picker and profile-switch persistence in a compatible Desktop session.
+Automated checks do not replace verifying the native picker and profile-switch persistence in a compatible Desktop session.
 
 ## Support
 
