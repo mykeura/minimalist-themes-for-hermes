@@ -36,7 +36,7 @@ hermes plugins install mykeura/minimalist-themes-for-hermes --no-enable
 hermes plugins enable minimalist-themes
 ```
 
-Enable the Desktop half in Hermes' plugin controls if it is not already enabled, then choose a palette in the native theme picker or ask the agent to use the packaged skill. Use **Reload desktop plugins** from the command palette if Desktop still shows an older version.
+Enable the Desktop half in Hermes' plugin controls if it is not already enabled, then choose a palette in the native theme picker. Use **Reload desktop plugins** from the command palette if Desktop still shows an older version.
 
 ## Update or uninstall
 

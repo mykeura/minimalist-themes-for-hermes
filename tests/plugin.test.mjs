@@ -6,27 +6,17 @@ import { test } from 'node:test'
 import vm from 'node:vm'
 
 const entries = ['desktop/plugin.js']
-function load(entry, { legacy = {}, native = {}, global = null, nativeGlobal = null, profile = 'default' } = {}) {
+function load(entry) {
   const source = readFileSync(new URL(`../${entry}`, import.meta.url), 'utf8')
-  const pluginStore = new Map([['profile-themes', legacy], ['global-theme', global]])
-  const local = new Map([['hermes-desktop-profile-themes-v1', JSON.stringify(native)]])
-  if (nativeGlobal !== null) local.set('hermes-desktop-theme-v2', nativeGlobal)
-  const registered = [], applied = [], styles = [], disposers = []
+  const registered = [], styles = [], disposers = []
   const sandbox = {
     THEMES_AREA: 'themes',
-    host: { state: { profile: { get: () => profile, subscribe: fn => { fn(profile); return () => {} } } } },
-    requestTheme: name => { applied.push(name); return true },
     document: { getElementById: () => null, createElement: () => ({ remove() {} }), head: { append: style => styles.push(style) } },
-    localStorage: { getItem: key => local.get(key) ?? null, setItem: (key, value) => local.set(key, value) },
-    window: { dispatchEvent() {} },
-    StorageEvent: class { constructor(type, props) { Object.assign(this, props); this.type = type } },
-    MutationObserver: class { observe() {} disconnect() {} },
-    requestAnimationFrame: fn => { fn(); return 1 }, cancelAnimationFrame() {},
   }
   vm.createContext(sandbox)
   vm.runInContext(source.replace(/^import .*$/m, '').replace('export default {', 'globalThis.plugin = {'), sandbox)
-  sandbox.plugin.register({ storage: { get: (key, fallback) => pluginStore.get(key) ?? fallback, set: (key, value) => pluginStore.set(key, value), remove: key => pluginStore.delete(key) }, register: item => registered.push(item), onDispose: fn => disposers.push(fn) })
-  return { registered, applied, styles, pluginStore, local, sandbox }
+  sandbox.plugin.register({ storage: { get: () => {}, set: () => {}, remove: () => {} }, register: item => registered.push(item), onDispose: fn => disposers.push(fn) })
+  return { registered, styles, sandbox }
 }
 for (const entry of entries) {
   test(`${entry}: exposes a neutral catalog description`, () => {

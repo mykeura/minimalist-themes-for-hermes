@@ -16,9 +16,8 @@ minimalist-hermes-themes.zip
 scripts/
 *.py
 
-# Public Agent entrypoint and regression tests
-!__init__.py
-!tests/test_*.py
+# Tests de desarrollo (no se versionan)
+tests/
 
 # Registros y notas locales de mantenimiento (no se versionan)
 PROGRESS.md
