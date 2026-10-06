@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 import { test } from 'node:test'
 import vm from 'node:vm'
 
-const entries = ['desktop/plugin.js', 'desktop-plugins/minimalist-themes/plugin.js']
+const entries = ['desktop/plugin.js']
 function load(entry, { legacy = {}, native = {}, global = null, nativeGlobal = null, profile = 'default' } = {}) {
   const source = readFileSync(new URL(`../${entry}`, import.meta.url), 'utf8')
   const pluginStore = new Map([['profile-themes', legacy], ['global-theme', global]])
@@ -41,16 +41,5 @@ for (const entry of entries) {
     const result = load(entry)
     assert.equal(result.registered.length, 18)
     assert.ok(result.styles.length > 0)
-  })
-  test(`${entry}: migrates missing native assignments once without overwriting existing picks`, () => {
-    const result = load(entry, { legacy: { coder: 'mint', writer: 'yuzu', default: 'mango', invalid: 'unknown' }, native: { writer: 'mono' }, nativeGlobal: 'slate', global: 'horchata', profile: 'coder' })
-    assert.deepEqual(JSON.parse(result.local.get('hermes-desktop-profile-themes-v1')), { writer: 'mono', coder: 'mint' })
-    assert.equal(result.local.get('hermes-desktop-theme-v2'), 'slate')
-    assert.equal(result.pluginStore.get('native-themes-migrated-v1'), true)
-    assert.equal(result.pluginStore.get('profile-themes').coder, 'mint')
-    assert.equal(result.applied.length, 0, 'migration must not call requestTheme and overwrite an active native pick')
-    result.local.set('hermes-desktop-profile-themes-v1', JSON.stringify({ writer: 'mono' }))
-    result.sandbox.plugin.register({ storage: { get: (key, fallback) => result.pluginStore.get(key) ?? fallback, set: (key, value) => result.pluginStore.set(key, value) }, register() {}, onDispose() {} })
-    assert.deepEqual(JSON.parse(result.local.get('hermes-desktop-profile-themes-v1')), { writer: 'mono' })
   })
 }

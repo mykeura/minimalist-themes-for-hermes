@@ -999,42 +999,6 @@ const PROFILE_RAIL_CSS = `:root[data-hermes-theme="beetroot-juice"] { --minimali
   background-color: color-mix(in srgb, var(--ui-text-primary) 18%, transparent) !important;
 }`
 
-// One-time bridge from the removed plugin selector to Desktop's native
-// per-profile preferences. Legacy values remain available for rollback.
-function migrateProfileThemes(ctx) {
-  if (typeof window === 'undefined' || typeof localStorage === 'undefined') return
-  if (ctx.storage.get('native-themes-migrated-v1', false)) return
-  const profilesKey = 'hermes-desktop-profile-themes-v1'
-  const globalKey = 'hermes-desktop-theme-v2'
-  const validTheme = name => THEMES.some(theme => theme.name === name)
-  const isRecord = value => value && typeof value === 'object' && !Array.isArray(value)
-  try {
-    const stored = ctx.storage.get('profile-themes', {})
-    const legacy = isRecord(stored) ? stored : {}
-    const raw = localStorage.getItem(profilesKey)
-    const native = raw === null ? {} : JSON.parse(raw)
-    if (!isRecord(native)) return // Do not replace malformed native storage.
-    const next = { ...native }
-    let changed = false
-    for (const [profile, theme] of Object.entries(legacy)) {
-      if (profile === 'default' || !profile || !validTheme(theme)) continue
-      if (!Object.hasOwn(next, profile)) {
-        Object.defineProperty(next, profile, { value: theme, enumerable: true, configurable: true, writable: true })
-        changed = true
-      }
-    }
-    if (changed) localStorage.setItem(profilesKey, JSON.stringify(next))
-    const global = validTheme(legacy.default) ? legacy.default : ctx.storage.get('global-theme', null)
-    const globalChanged = localStorage.getItem(globalKey) === null && validTheme(global)
-    if (globalChanged) localStorage.setItem(globalKey, global)
-    ctx.storage.set('native-themes-migrated-v1', true)
-    // setItem does not notify this renderer; ask the native provider to reread.
-    if (changed || globalChanged) window.dispatchEvent(new StorageEvent('storage', { key: changed ? profilesKey : globalKey }))
-  } catch (error) {
-    console.warn('[minimalist-themes] Native theme migration deferred:', error)
-  }
-}
-
 function installProfileRailStyle(ctx) {
   if (typeof document === 'undefined') return
   document.getElementById(PROFILE_RAIL_STYLE_ID)?.remove()
@@ -1056,6 +1020,5 @@ export default {
       ctx.register({ id: t.name, area: THEMES_AREA, data: theme })
     }
     installProfileRailStyle(ctx)
-    migrateProfileThemes(ctx)
   }
 }

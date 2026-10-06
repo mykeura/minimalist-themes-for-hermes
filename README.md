@@ -10,32 +10,22 @@ Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
 - 18 palettes available in Hermes Desktop's native theme picker.
 - Different palettes for different profiles through Hermes Desktop's native appearance preferences.
-- A packaged Agent skill for assigning and verifying profile themes.
 - Matching YAML skins for optional CLI/TUI use; Desktop installation does not activate them automatically.
 
-The plugin no longer adds a Settings button or a profile-theme selection dialog. It also leaves the plugin information icon and Agent switch visible, as provided by Hermes.
+## Per-profile themes
 
-## Per-profile themes with the agent
+Hermes Desktop supports native per-profile theme assignment:
+1. Switch to the profile you want to customize
+2. Open Settings → Appearance → Theme
+3. Select a Minimalist palette
 
-Ask the agent to load `minimalist-themes:profile-themes` and assign the palettes you want, for example:
-
-> Load the Minimalist profile-themes skill. Set Mint for my coder profile and Yuzu for my writer profile, verify both assignments, and return to my original profile.
-
-The skill uses Hermes Desktop's native theme picker and verifies that selections persist after switching profiles. It requires working Desktop automation through Hermes' `computer_use` tool. If automation is unavailable, the agent must report that limitation rather than claim success. You can still select a palette manually in the native theme picker.
-
-The Agent half must be enabled in the profile running the agent to expose the namespaced skill. It registers one read-only skill, no tools or hooks, and does not change any profile merely by loading. You do not need to install the skill into every profile whose appearance you want to change.
-
-### Upgrading from the plugin's old selector
-
-On first load, the Desktop half imports valid saved plugin assignments into missing native Desktop preferences. Existing native assignments take priority. Legacy plugin values remain stored for rollback, but no longer control ongoing appearance changes. This one-time migration does not alter profile configuration files.
-
-Profiles without a native assignment follow the native default appearance. The `default` profile controls that inheritance slot, so changing its theme can also affect unassigned profiles. Desktop preferences belong to the local Desktop installation; they are not synchronized into a remote profile's configuration.
+The theme assignment persists per profile. The `default` profile controls the inheritance slot for profiles without explicit assignments.
 
 ## Compatibility
 
-The manifest requires Hermes `>=0.21.3`. Per-profile assignment additionally requires a Hermes Desktop build with native per-profile appearance support. The Agent workflow requires `computer_use`; it does not install or enable that tool automatically.
+The manifest requires Hermes `>=0.21.3`. Per-profile assignment requires a Hermes Desktop build with native per-profile appearance support.
 
-`desktop/plugin.js` is the unified package's Desktop entrypoint. `__init__.py` registers the Agent skill from `skills/profile-themes/SKILL.md`. The standalone entrypoint under `desktop-plugins/minimalist-themes/` contains the same Desktop behavior, but a standalone Desktop installation alone does not register the Agent skill.
+`desktop/plugin.js` is the Desktop entrypoint.
 
 ## Install from GitHub
 
@@ -59,18 +49,16 @@ Select another native Desktop theme before removing the plugin if a Minimalist p
 
 ## Development and verification
 
-The Desktop SDK loads the JavaScript entrypoints directly; no build step is required. Run these checks from the repository root:
+The Desktop SDK loads the JavaScript entrypoint directly; no build step is required. Run these checks from the repository root:
 
 ```bash
 node --check desktop/plugin.js
-node --check desktop-plugins/minimalist-themes/plugin.js
 node --test tests/plugin.test.mjs
-hermes --run-module unittest discover -s tests -p 'test_*.py' -v
 hermes plugins validate .
 hermes plugins doctor . --ci
 ```
 
-The Python tests use Hermes' runtime and its YAML parser. They check the Agent skill registration and frontmatter; the JavaScript tests check palette registration, removal of the custom controls, and migration of legacy assignments. Automated checks do not replace verifying the native picker and profile-switch persistence in a compatible Desktop session.
+The JavaScript tests check palette registration and absence of custom UI controls. Automated checks do not replace verifying the native picker and profile-switch persistence in a compatible Desktop session.
 
 ## Support
 
