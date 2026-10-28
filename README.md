@@ -41,24 +41,31 @@ Typography and terminal palettes are optional theme fields: a build that predate
 
 ## Install from GitHub
 
-These commands install the published repository version, not uncommitted changes in this development branch:
+Every install resolves to this GitHub repository; the plugin has no other distribution channel. These commands install the published version, not uncommitted changes:
 
 ```bash
 hermes plugins install mykeura/minimalist-themes-for-hermes --no-enable
 hermes plugins enable minimalist-themes
 ```
 
+Pin a release explicitly with `--ref <commit>` if you want a version you chose rather than the latest commit. Once the entry is merged into Hermes' plugin catalog you will also be able to install it by name.
+
 Enable the plugin in Hermes' plugin controls if it is not already enabled, then choose a palette in the native theme picker. Use **Reload desktop plugins** from the command palette if Desktop still shows an older version.
 
 ## CLI and TUI skins
 
-The repository ships a matching skin per palette, for `hermes` and `hermes --tui`. Skins are files, not part of the plugin switch, so copy them once after installing and again after an update:
+The repository ships a matching skin per palette, for `hermes` and `hermes --tui`. Skins are files, not part of the plugin switch, so copy them once after installing and again after every update:
 
 ```bash
 mkdir -p ~/.hermes/skins
-cp ~/.hermes/plugins/minimalist-themes-for-hermes/skins/*.yaml ~/.hermes/skins/
-hermes skin use minimalist-mango
+cp ~/.hermes/plugins/minimalist-themes/skins/*.yaml ~/.hermes/skins/
+hermes skin list                    # every skin, with * on the active one
+hermes skin use minimalist-mango    # change it
 ```
+
+The copy takes the skins that ship inside the installed plugin, so it is only as new as that install: `hermes plugins list` should show the version you expect (1.5.0 today) before you copy. A stale plugin means stale skins.
+
+Inside a running session `/skin minimalist-mango` does the same without restarting, and `/skin` on its own cycles through the list.
 
 Every skin is the palette name with `minimalist-` in front, so it cannot collide with a Hermes skin, or with the Desktop theme of the same name.
 
@@ -82,8 +89,9 @@ The Desktop SDK loads the JavaScript entrypoint directly; no build step is requi
 ```bash
 node --check desktop/plugin.js
 hermes plugins validate .
-hermes plugins doctor . --ci
 ```
+
+`hermes plugins validate` is the gate the catalog runs. `hermes plugins doctor` passes too: the package ships an inert `__init__.py` that satisfies the Agent-side plugin contract without registering any tool, hook or setting.
 
 Automated checks do not replace verifying the native picker, the profile-switch persistence, the terminal pane and the typeface in a compatible Desktop session.
 
