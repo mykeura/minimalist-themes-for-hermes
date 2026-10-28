@@ -2,6 +2,27 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.4.0] — 2026-10-28
+
+### Added
+
+- One type system for all eighteen palettes: Figtree for the interface and Geist Mono for code and the terminal, embedded as latin-subset variable WOFF2 and declared once in a shared stylesheet. No network requests; the plugin still works offline.
+- Per-palette terminal ANSI colors for the Desktop terminal pane (foreground, cursor, selection and the sixteen ANSI entries), each validated against its own canvas.
+- CLI/TUI skin bridge: activating a `minimalist-*` skin also switches Desktop to that palette's full theme, typography and terminal colors included.
+- `LICENSES/` with the two SIL Open Font License texts, and `assets/fonts/` with the unmodified sources the plugin embeds.
+
+### Changed
+
+- CLI skins renamed to `minimalist-<palette>`. A skin whose name matched a Desktop theme shadowed it in the picker (skins resolve before contributed themes), replacing the palette with the app's flat conversion of the YAML.
+- Compatibility rules now match by prefix (`[data-hermes-theme^="<palette>"]`) instead of exact name.
+- The shared stylesheet (fonts plus compatibility rules) is installed once per plugin load; per-theme `customCSS` is deliberately unused, since eighteen copies of the embedded fonts would cost about 1.5 MB of renderer memory for no visual gain.
+- `scripts/build-plugin.py` generates the skins as well as `desktop/plugin.js`, reads the version from `VERSION` and keeps `plugin.yaml` in sync. Dead profile-lock code from 1.2.x is gone.
+
+### Fixed
+
+- Readability fixes for the profile rail, Capabilities, the MCP JSON editor and Manage Profiles stopped applying as soon as a custom accent was saved, because the app renames the active theme to `<palette>-accent-<hex>`.
+
+
 ## [1.3.0] — 2026-10-06
 
 ### Changed

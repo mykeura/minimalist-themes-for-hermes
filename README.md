@@ -2,7 +2,7 @@
 
 Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
-**Version 1.3.0**
+**Version 1.4.0**
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 
@@ -10,7 +10,17 @@ Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
 - 18 palettes available in Hermes Desktop's native theme picker.
 - Different palettes for different profiles through Hermes Desktop's native appearance preferences.
+- One type system for every palette: Figtree for the interface and Geist Mono for code and the terminal, embedded in the plugin and loaded offline.
+- Matching terminal colors per palette, so the integrated terminal belongs to the theme instead of fighting it.
 - Matching YAML skins for optional CLI/TUI use; Desktop installation does not activate them automatically.
+
+## Typography
+
+All eighteen palettes share a single pair of typefaces: **Figtree** for the interface and **Geist Mono** for code, the terminal and tabular data. One voice across the collection is what keeps it minimalist; eighteen display faces would be eighteen aesthetic decisions with nothing to gain.
+
+Both fonts ship inside the plugin as latin-subset variable WOFF2, declared once in the plugin's shared stylesheet. Nothing is fetched at runtime and the plugin keeps working offline. Both are licensed under the SIL Open Font License; see `LICENSES/`.
+
+If you set a custom chat font in Settings, that choice still wins inside the chat and the theme's typeface applies to the rest of the app — Hermes resolves the two in that order by design.
 
 ## Per-profile themes
 
@@ -25,6 +35,8 @@ The theme assignment persists per profile. The `default` profile controls the in
 
 The manifest requires Hermes `>=0.21.3`. Per-profile assignment requires a Hermes Desktop build with native per-profile appearance support.
 
+Typography and terminal palettes are optional theme fields: a build that predates them ignores those parts and paints the palette's colors, so the plugin never breaks an older Desktop. A saved custom accent is supported — the compatibility rules follow the retinted theme instead of dropping out.
+
 `desktop/plugin.js` is the Desktop entrypoint.
 
 ## Install from GitHub
@@ -38,6 +50,20 @@ hermes plugins enable minimalist-themes
 
 Enable the plugin in Hermes' plugin controls if it is not already enabled, then choose a palette in the native theme picker. Use **Reload desktop plugins** from the command palette if Desktop still shows an older version.
 
+## CLI and TUI skins
+
+The repository ships a matching skin per palette, for `hermes` and `hermes --tui`. Skins are files, not part of the plugin switch, so copy them once after installing and again after an update:
+
+```bash
+mkdir -p ~/.hermes/skins
+cp ~/.hermes/plugins/minimalist-themes-for-hermes/skins/*.yaml ~/.hermes/skins/
+hermes skin use minimalist-mango
+```
+
+Every skin is the palette name with `minimalist-` in front, so it cannot collide with a Hermes skin, or with the Desktop theme of the same name.
+
+Hermes shares the active appearance between surfaces. While the plugin is enabled, activating a `minimalist-*` skin also switches Desktop to that palette's full theme — typography, terminal colors and compatibility rules included — instead of the flat palette the skin alone would produce. Each profile keeps its own skins, so copy them into `~/.hermes/profiles/<name>/skins/` as well. `hermes skin use default` goes back to the stock look.
+
 ## Update or uninstall
 
 ```bash
@@ -49,7 +75,7 @@ Select another native Desktop theme before removing the plugin if a Minimalist p
 
 ## Development and verification
 
-The Desktop SDK loads the JavaScript entrypoint directly; no build step is required. Run these checks from the repository root:
+The Desktop SDK loads the JavaScript entrypoint directly; no build step is required to use the plugin. Run these checks from the repository root:
 
 ```bash
 node --check desktop/plugin.js
@@ -57,7 +83,7 @@ hermes plugins validate .
 hermes plugins doctor . --ci
 ```
 
-Automated checks do not replace verifying the native picker and profile-switch persistence in a compatible Desktop session.
+Automated checks do not replace verifying the native picker, the profile-switch persistence, the terminal pane and the typeface in a compatible Desktop session.
 
 ## Theme gallery
 
@@ -83,4 +109,4 @@ If you would rather support my work directly, you can also [sponsor me on GitHub
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE). The bundled fonts are under the SIL Open Font License; see [LICENSES](LICENSES).
