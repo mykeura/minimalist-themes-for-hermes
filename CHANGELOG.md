@@ -2,6 +2,22 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.5.0] — 2026-10-28
+
+### Added
+
+- The CLI banner is themed. Each skin carries its own `banner_logo` (the HERMES AGENT wordmark) and `banner_hero` (the emblem beside the panel), painted in that palette's accent family instead of the gold and bronze Hermes hardcodes. Desktop never reads either field, so its appearance is unchanged.
+- The banner hero is the project's monochrome emblem, rendered once as braille at the caduceus footprint (30 columns, 13 rows) and reused by every palette.
+
+### Changed
+
+- The wordmark keeps Hermes' own geometry and only changes colour; the guidance below 95 terminal columns that skips the wordmark still applies.
+
+### Known limitation
+
+- Hermes paints deferred tools (`a2a`, `homeassistant`, `discord`, `feishu`, …) with the fixed ANSI `yellow` and disabled ones with `red` in `hermes_cli/banner.py`; a skin cannot override ANSI names, so those two lines keep the app's amber in every theme. The fix is a small upstream change, proposed separately.
+
+
 ## [1.4.0] — 2026-10-28
 
 ### Added

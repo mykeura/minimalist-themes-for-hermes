@@ -1899,7 +1899,7 @@ function followCliSkins(ctx) {
 export default {
   id: ID,
   name: 'Minimalist Themes',
-  version: '1.4.0',
+  version: '1.5.0',
   description: 'Minimalist Themes by @mykeura — 18 warm, readable palettes for a cleaner Hermes Desktop.',
   register(ctx) {
     ctx.registerMany(THEMES.map(t => ({

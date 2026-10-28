@@ -2,7 +2,7 @@
 
 Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
-**Version 1.4.0**
+**Version 1.5.0**
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 
@@ -63,6 +63,8 @@ hermes skin use minimalist-mango
 Every skin is the palette name with `minimalist-` in front, so it cannot collide with a Hermes skin, or with the Desktop theme of the same name.
 
 Hermes shares the active appearance between surfaces. While the plugin is enabled, activating a `minimalist-*` skin also switches Desktop to that palette's full theme — typography, terminal colors and compatibility rules included — instead of the flat palette the skin alone would produce. Each profile keeps its own skins, so copy them into `~/.hermes/profiles/<name>/skins/` as well. `hermes skin use default` goes back to the stock look.
+
+The CLI banner is themed too: the HERMES AGENT wordmark and the emblem beside it are painted with the active palette, so changing skin repaints them as well.
 
 ## Update or uninstall
 
