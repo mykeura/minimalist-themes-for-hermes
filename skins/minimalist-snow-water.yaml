@@ -1,14 +1,14 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Miguel Euraque
-# Minimalist Green Tea — generated from palettes.json
-# Source palette: accent=#A9DF9C, canvas=#E3F5DE, field=#C8D8C4, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#E3F5DE, paper=#FFFFFF, button=#A9DF9C
-name: green-tea
-description: Minimalist Green Tea — minimalist light palette
+# Minimalist Snow Water — generated from palettes.json
+# Source palette: accent=#AED6F1, canvas=#E8F4FC, field=#C8D8C4, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#E8F4FC, paper=#FFFFFF, button=#AED6F1
+name: minimalist-snow-water
+description: Minimalist Snow Water — minimalist light palette
 
 colors:
-  background: "#E3F5DE"
-  ui_accent: "#A9DF9C"
-  banner_accent: "#A9DF9C"
+  background: "#E8F4FC"
+  ui_accent: "#AED6F1"
+  banner_accent: "#AED6F1"
   banner_title: "#3A3E41"
   banner_text: "#3A3E41"
   ui_text: "#3A3E41"
@@ -17,9 +17,9 @@ colors:
   banner_dim: "#666A6D"
   banner_border: "#C8D8C4"
   ui_border: "#C8D8C4"
-  ui_tool: "#A9DF9C"
+  ui_tool: "#AED6F1"
   prompt: "#3A3E41"
-  input_rule: "#A9DF9C"
+  input_rule: "#AED6F1"
   response_border: "#C8D8C4"
   status_bar_bg: "#C8D8C4"
   status_bar_text: "#3A3E41"
@@ -35,13 +35,13 @@ colors:
   session_label: "#3C4043"
   session_border: "#C8D8C4"
   completion_menu_bg: "#FFFFFF"
-  completion_menu_current_bg: "#A9DF9C"
+  completion_menu_current_bg: "#AED6F1"
   selection_bg: "#C8D8C4"
-  voice_status_bg: "#E3F5DE"
+  voice_status_bg: "#E8F4FC"
   diff_added: "#2F7D32"
   diff_removed: "#B42318"
   syntax_string: "#3A3E41"
-  syntax_number: "#A9DF9C"
+  syntax_number: "#AED6F1"
   syntax_keyword: "#3C4043"
   syntax_comment: "#666A6D"
 

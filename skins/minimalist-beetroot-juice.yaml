@@ -1,27 +1,27 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Miguel Euraque
-# Minimalist Oceans — generated from palettes.json
-# Source palette: accent=#5EBDF6, canvas=#B9E2FB, field=#F3FAFE, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#B9E2FB, paper=#FFFFFF, button=#5EBDF6
-name: oceans
-description: Minimalist Oceans — minimalist light palette
+# Minimalist Beetroot Juice — generated from palettes.json
+# Source palette: accent=#E6B0AA, canvas=#F6E1DF, field=#D8C6C5, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#F6E1DF, paper=#FFFFFF, button=#E6B0AA
+name: minimalist-beetroot-juice
+description: Minimalist Beetroot Juice — minimalist light palette
 
 colors:
-  background: "#B9E2FB"
-  ui_accent: "#5EBDF6"
-  banner_accent: "#5EBDF6"
+  background: "#F6E1DF"
+  ui_accent: "#E6B0AA"
+  banner_accent: "#E6B0AA"
   banner_title: "#3A3E41"
   banner_text: "#3A3E41"
   ui_text: "#3A3E41"
   ui_label: "#3A3E41"
   ui_thinking: "#666A6D"
   banner_dim: "#666A6D"
-  banner_border: "#F3FAFE"
-  ui_border: "#F3FAFE"
-  ui_tool: "#5EBDF6"
+  banner_border: "#D8C6C5"
+  ui_border: "#D8C6C5"
+  ui_tool: "#E6B0AA"
   prompt: "#3A3E41"
-  input_rule: "#5EBDF6"
-  response_border: "#F3FAFE"
-  status_bar_bg: "#F3FAFE"
+  input_rule: "#E6B0AA"
+  response_border: "#D8C6C5"
+  status_bar_bg: "#D8C6C5"
   status_bar_text: "#3A3E41"
   status_bar_strong: "#3C4043"
   status_bar_dim: "#666A6D"
@@ -33,15 +33,15 @@ colors:
   ui_warn: "#9A6700"
   ui_error: "#B42318"
   session_label: "#3C4043"
-  session_border: "#F3FAFE"
+  session_border: "#D8C6C5"
   completion_menu_bg: "#FFFFFF"
-  completion_menu_current_bg: "#5EBDF6"
-  selection_bg: "#F3FAFE"
-  voice_status_bg: "#B9E2FB"
+  completion_menu_current_bg: "#E6B0AA"
+  selection_bg: "#D8C6C5"
+  voice_status_bg: "#F6E1DF"
   diff_added: "#2F7D32"
   diff_removed: "#B42318"
   syntax_string: "#3A3E41"
-  syntax_number: "#5EBDF6"
+  syntax_number: "#E6B0AA"
   syntax_keyword: "#3C4043"
   syntax_comment: "#666A6D"
 

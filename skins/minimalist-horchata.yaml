@@ -1,27 +1,27 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Miguel Euraque
-# Minimalist Beetroot Juice — generated from palettes.json
-# Source palette: accent=#E6B0AA, canvas=#F6E1DF, field=#D8C6C5, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#F6E1DF, paper=#FFFFFF, button=#E6B0AA
-name: beetroot-juice
-description: Minimalist Beetroot Juice — minimalist light palette
+# Minimalist Horchata — generated from palettes.json
+# Source palette: accent=#EFD8BE, canvas=#FAF3EA, field=#D1D0CB, ink=#3A3E41, inkAlt=#3C4043, inkSoft=#666A6D, backdrop=#FAF3EA, paper=#FFFFFF, button=#EFD8BE
+name: minimalist-horchata
+description: Minimalist Horchata — minimalist light palette
 
 colors:
-  background: "#F6E1DF"
-  ui_accent: "#E6B0AA"
-  banner_accent: "#E6B0AA"
+  background: "#FAF3EA"
+  ui_accent: "#EFD8BE"
+  banner_accent: "#EFD8BE"
   banner_title: "#3A3E41"
   banner_text: "#3A3E41"
   ui_text: "#3A3E41"
   ui_label: "#3A3E41"
   ui_thinking: "#666A6D"
   banner_dim: "#666A6D"
-  banner_border: "#D8C6C5"
-  ui_border: "#D8C6C5"
-  ui_tool: "#E6B0AA"
+  banner_border: "#D1D0CB"
+  ui_border: "#D1D0CB"
+  ui_tool: "#EFD8BE"
   prompt: "#3A3E41"
-  input_rule: "#E6B0AA"
-  response_border: "#D8C6C5"
-  status_bar_bg: "#D8C6C5"
+  input_rule: "#EFD8BE"
+  response_border: "#D1D0CB"
+  status_bar_bg: "#D1D0CB"
   status_bar_text: "#3A3E41"
   status_bar_strong: "#3C4043"
   status_bar_dim: "#666A6D"
@@ -33,15 +33,15 @@ colors:
   ui_warn: "#9A6700"
   ui_error: "#B42318"
   session_label: "#3C4043"
-  session_border: "#D8C6C5"
+  session_border: "#D1D0CB"
   completion_menu_bg: "#FFFFFF"
-  completion_menu_current_bg: "#E6B0AA"
-  selection_bg: "#D8C6C5"
-  voice_status_bg: "#F6E1DF"
+  completion_menu_current_bg: "#EFD8BE"
+  selection_bg: "#D1D0CB"
+  voice_status_bg: "#FAF3EA"
   diff_added: "#2F7D32"
   diff_removed: "#B42318"
   syntax_string: "#3A3E41"
-  syntax_number: "#E6B0AA"
+  syntax_number: "#EFD8BE"
   syntax_keyword: "#3C4043"
   syntax_comment: "#666A6D"
 
