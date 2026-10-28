@@ -2,6 +2,16 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.5.1] — 2026-10-28
+
+### Fixed
+
+- Hermes Agent no longer reports the package as a failed plugin. Every startup path that enumerates plugins logged `Failed to load plugin 'minimalist-themes': No __init__.py`, and `hermes plugins doctor` showed `ERROR: Plugin registration failed`, even though a Desktop-only pack has nothing to register. The package now ships an inert `__init__.py` whose `register()` does nothing, so the loader imports it successfully and records zero capabilities. `hermes plugins doctor` reports OK.
+
+### Changed
+
+- `.gitignore` keeps ignoring the private `*.py` tooling but no longer hides the package entrypoint.
+
 ## [1.5.0] — 2026-10-28
 
 ### Added
