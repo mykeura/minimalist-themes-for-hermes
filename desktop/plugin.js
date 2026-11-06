@@ -1887,7 +1887,9 @@ function followCliSkins(ctx) {
   const follow = () => {
     const active = root.dataset.hermesTheme ?? ''
     if (!active.startsWith(SKIN_PREFIX)) return
-    const theme = active.slice(SKIN_PREFIX.length)
+    // A saved accent retint renames the skin to <id>-accent-<6hex>; the
+    // bridge still resolves it to the palette's full theme.
+    const theme = active.slice(SKIN_PREFIX.length).replace(/-accent-[0-9a-f]{6}$/, '')
     if (THEME_NAMES.has(theme)) requestTheme(theme)
   }
   const observer = new MutationObserver(follow)
