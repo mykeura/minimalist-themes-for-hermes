@@ -27,7 +27,7 @@ colors:
   status_bar_dim: "#666A6D"
   status_bar_good: "#2F7D32"
   status_bar_warn: "#9A6700"
-  status_bar_bad: "#9A6700"
+  status_bar_bad: "#C2410C"
   status_bar_critical: "#B42318"
   ui_ok: "#2F7D32"
   ui_warn: "#9A6700"
