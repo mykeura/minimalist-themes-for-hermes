@@ -2,7 +2,7 @@
 
 Give Hermes Desktop a warmer, calmer look with 18 balanced palettes.
 
-**Version 1.5.0**
+**Version 1.6.0**
 
 ![Minimalist Themes for Hermes Desktop](images/hermes-cover.png)
 
@@ -63,7 +63,7 @@ hermes skin list                    # every skin, with * on the active one
 hermes skin use minimalist-mango    # change it
 ```
 
-The copy takes the skins that ship inside the installed plugin, so it is only as new as that install: `hermes plugins list` should show the version you expect (1.5.0 today) before you copy. A stale plugin means stale skins.
+The copy takes the skins that ship inside the installed plugin, so it is only as new as that install: `hermes plugins list` should show the version you expect (1.6.0 today) before you copy. A stale plugin means stale skins.
 
 Inside a running session `/skin minimalist-mango` does the same without restarting, and `/skin` on its own cycles through the list.
 

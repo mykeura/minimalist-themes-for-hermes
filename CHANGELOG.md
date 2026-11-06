@@ -2,6 +2,19 @@
 
 All notable, versioned changes to Minimalist Themes for Hermes Desktop are documented here. Entries are grouped from the repository's Git history; the source commit is included for traceability.
 
+## [1.6.0] — 2026-11-06
+
+### Fixed
+
+- Snow Water no longer wears Green Tea's field. Its muted, border and sidebar surfaces carried a sage green (`#C8D8C4`) copied verbatim from the other palette; they now use a blue-grey (`#C7D9E4`) in Snow Water's own hue family, with the derived border and secondary recomputed accordingly.
+- Diana Yin restores a distinguishable ANSI bright ramp. All eight bright terminal colors had collapsed to the theme ink because none could reach the 7:1 legibility target on its dark canvas, so normal and bright text rendered identically; each bright now has a deeper per-family twin.
+- The CLI-skin bridge follows accent-retinted skins again. Saving an accent renames the active appearance to `minimalist-<id>-accent-<hex>`, which missed the theme lookup and silently left the skin's flat conversion — without the compat layer — instead of the full theme.
+- `status_bar_bad` is a distinct dark orange (`#C2410C`) instead of duplicating warn's amber, restoring the four-level good/warn/bad/critical status ramp.
+
+### Changed
+
+- The skins and `desktop/plugin.js` are now the source of truth: the one-time extraction pipeline and local maintenance notes were retired, and the "generated from palettes.json" banner is gone.
+
 ## [1.5.1] — 2026-10-28
 
 ### Fixed
